@@ -15,7 +15,7 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
 | Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 = standalone videos; 15:00 = the daily part of the running multi-part series (Metricool best-time data for this account). 4 videos/day, ~90k of the 121k monthly ElevenLabs credits. |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
-| Storage | Cloud only. Never copy anything to the owner's laptop. Finished videos live as GitHub release assets until posted, then are deleted. |
+| Storage | Cloud only. Never copy anything to the owner's laptop. Posting copies live on a temporary `m-<slug>` branch only until Metricool has copied them, then the branch is deleted. |
 
 ## 1. One run = one finished, scheduled video
 
@@ -122,18 +122,22 @@ captions slightly below centre and inside platform safe zones, full-screen title
 
 ## 5. Publish
 
-1. Make a posting copy: `ffmpeg -i final.mp4 -c:v libx264 -crf 23 -preset veryfast -c:a copy post.mp4` (~15 MB).
-2. Upload it as a release asset on this repo (`gh release create v-<slug> post.mp4 -R suheelpeerzada/shorts-factory`) (tag `v-<slug>`), take the asset's browser_download_url.
+1. Make a posting copy: `ffmpeg -i final.mp4 -c:v libx264 -crf 23 -preset veryfast -c:a copy -movflags +faststart post.mp4` (~15 MB)
+   and the cover (title card only: render the frame at 1.6 s with an ASS file holding only the title-card events, no captions).
+2. Host them temporarily on an orphan branch of this public repo (GitHub releases are blocked for these sessions):
+   `T=$(mktemp -d); cd $T; git init -q; git checkout -q --orphan m-<slug>; cp post.mp4 <slug>.mp4; cp cover.jpg <slug>-cover.jpg;`
+   `git add -A; git commit -qm "Temporary posting copy"; git remote add origin https://github.com/suheelpeerzada/shorts-factory; git push -q origin m-<slug>`
+   URLs: `https://raw.githubusercontent.com/suheelpeerzada/shorts-factory/m-<slug>/<slug>.mp4` (and `-cover.jpg`). Check both return HTTP 200.
 3. `createScheduledPost` (blogId 7873272) at the reserved slot, providers youtube + instagram, `autoPublish: true`,
-   `media: [video url]`, `videoThumbnailUrl: <cover.jpg url>`, `firstCommentText`, `text` = Instagram caption,
-   `youtubeData: {title, type: "short", privacy: "public", madeForKids: false, category: "EDUCATION"}`,
-   `instagramData: {type: "REEL", showReelOnFeed: true}`.
-4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `asset` (tag name).
+   `media: [video url]`, `videoThumbnailUrl: <cover url>`, `firstCommentText`, `text` = Instagram caption,
+   `youtubeData: {title, type: "short", privacy: "public", tags, madeForKids: false, category: "EDUCATION"}`,
+   `instagramData: {type: "REEL", showReelOnFeed: true}`. Metricool copies the files into its own storage (the response shows
+   static.metricool.com URLs); as soon as it succeeds, delete the branch: `git push origin --delete m-<slug>` (run in the repo clone).
+4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `postId`.
 
 ## 6. Daily review and cleanup (separate scheduled task)
 
-- For every row whose slot has passed: if the post is no longer in `getScheduledPosts`, mark youtube/instagram `done`, delete the
-  release asset + tag.
+- For every row whose slot has passed: if the post is no longer in `getScheduledPosts`, mark youtube/instagram `done` and delete any leftover `m-*` branch.
 - Pull analytics for posts 24 h+ old: Instagram reels (IGRE23 views, IGRE27 retention, IGRE24 avg watch, IGRE28 view rate,
   IGRE21 shares, IGRE12 saves, IGRE07 comments) and YouTube (YTVP06 views, YTVP08 avg view duration, YTVP11 comments, YTVP12 shares).
   Write them to the row's `stats`.
