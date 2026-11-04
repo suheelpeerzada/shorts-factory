@@ -13,15 +13,16 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Metricool brand (blogId) | 7873272, timezone Asia/Calcutta |
 | Production board (artifact) | https://claude.ai/artifact/LRCFDndSkAeADNZW5NNKj1, collection `videos`, plus `learnings` |
 | Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
-| Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 every day (Metricool best-time data for this account) |
+| Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 = standalone videos; 15:00 = the daily part of the running multi-part series (Metricool best-time data for this account). 4 videos/day, ~90k of the 121k monthly ElevenLabs credits. |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
 | Storage | Cloud only. Never copy anything to the owner's laptop. Finished videos live as GitHub release assets until posted, then are deleted. |
 
 ## 1. One run = one finished, scheduled video
 
-1. Read the board (`videos`, ordered by `order`) and `learnings`. Find the next free slot: the earliest of 10:00/12:00/18:00 IST,
+1. Read the board (`videos`, ordered by `order`), `learnings` and `series`. Find the next free slot: the earliest of 10:00/12:00/15:00/18:00 IST,
    at least 3 hours from now, not already taken by any board row's `slot` field or any Metricool scheduled post
-   (`getScheduledPosts`). If the next 3 slots are all taken, stop: the queue is full enough.
+   (`getScheduledPosts`). If the next 4 slots are all taken, stop: the queue is full enough.
+   If the slot is 15:00, this run makes the next SERIES part (section 2b); any other slot makes a standalone video.
 2. If a board row has `audio: done` and `video: todo` and NO `builder: "chat"` field, build that one (oldest first). Rows with
    `builder: "chat"` are being built by the owner's chat session: never touch them, but treat their `slot` as taken. Otherwise make a new video (sections 2-4).
 3. Create the board row immediately (`video: doing`, `slot` reserved as ISO time with +05:30, `builder: "auto"`) so parallel runs never take the same slot.
@@ -67,6 +68,26 @@ Save trigger: series framing ("Part 3 of History's Weirdest Defeats").
 Anything below 9: revise hook/title/twist and re-score (max 3 rounds), then proceed with the best version.
 
 Strategy card stored on the board row: `{series, angle, hook_style, title, caption, first_comment, scores:{...}, risk, opportunity, belief:{old,new}}`.
+
+## 2b. Multi-part series (the 15:00 slot)
+
+Purpose: attachment and binge. One series runs at a time; it gets one part per day at 15:00 until its final part.
+
+- **Choosing a series.** A true story too big for 45 s with natural cliffhangers (heists, escapes, expeditions, cons, mysteries,
+  survival, rivalries). Score it with the same framework; it must support 3-5 parts that each have their own escalation. Verify facts.
+- **Plan the whole series before Part 1 airs.** Store it on the board: collection `series`, doc `<slug>`:
+  `{title, parts: N, status: "running", outline: [{part, beats, cliffhanger, slot, status}], cast, places}`. Part 1 never promises what the
+  outline cannot deliver. Each part's board row in `videos` carries `series: <slug>`, `part`, `of`.
+- **Part structure (35-50 s).** Parts 2+ open with a 2-second recap line ("Part 2. Last time, a con man had just sold the Eiffel Tower...")
+  then a fresh hook. Escalate. End on a cliffhanger: cut at the moment of maximum tension with an open question; never resolve it.
+  The final part pays everything off and ends with "Follow for the next story."
+- **Packaging.** Title card shows a big "PART 2" badge under the series name. YouTube title: `<Series title> (Part 2/4) <emoji> #shorts`.
+  Instagram caption: 2-line hook, "Part 2 of 4. Watch Part 1 on my profile 👆", "Watch till the end 👀", hashtags incl. #part2 #series.
+  First comment: "Part 3 drops tomorrow at 3 PM IST ⏰ Who do you think wins?" (on the final part: a discussion question).
+- **Continuity.** Same cast designs, world and music theme across parts. Keep the series' build in the repo at `series/<slug>/`
+  (web/, audio/ cue table, make_ass.py) and commit after every part, so the next run reuses the world and only writes new shots.
+- **Learning.** If Part 1's retention is far below the channel average, compress the remaining outline (fewer parts) but always finish the
+  series. Never abandon one midway. When the final part is scheduled, set the series `status: "done"`; the next 15:00 run starts a new one.
 
 ## 3. Voiceover
 
