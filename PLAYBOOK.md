@@ -17,7 +17,12 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
 | Storage | Cloud only. Never copy anything to the owner's laptop. Posting copies live on the `media` branch only until Metricool has copied them (minutes), then the branch is cleared. |
 
-## 1. One run = one finished, scheduled video
+## 1. Production cadence
+
+One production run per day (11:07 IST) makes TOMORROW's shorts: up to three videos, one after another, each finished and scheduled
+before the next starts (10:00 standalone, 15:00 series part, 18:00 standalone). The steps below are per video.
+
+### Per video
 
 1. Read the board (`videos`, ordered by `order`), `learnings` and `series`. Find the next free slot: the earliest of 10:00/15:00/18:00 IST,
    at least 3 hours from now, not already taken by any board row's `slot` field or any Metricool scheduled post
