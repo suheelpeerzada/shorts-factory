@@ -1,0 +1,21 @@
+<!doctype html><html><body style="margin:0;background:#cfe3f2">
+<canvas id="c" width="2400" height="1500"></canvas>
+<script type="module">
+import { drawPerson, GENERAL, CHIEF, hunter, beater, FARMER, drawRabbit, drawRabbitFront, drawCabbage, drawHutch, drawExclaim } from "./cast.js";
+const C = document.getElementById("c"), g = C.getContext("2d");
+g.fillStyle = "#cfe3f2"; g.fillRect(0, 0, 2400, 1500);
+const person = (x, o, opts) => { const c = document.createElement("canvas"); c.width = 1200; c.height = 2000; drawPerson(c.getContext("2d"), o, opts); g.drawImage(c, x, 0, 300, 500); };
+person(0, GENERAL, { mode: "stand", expr: "stern", seed: 3, facing: 1 });
+person(300, GENERAL, { mode: "stand", expr: "smile", seed: 3, wave: 0.5 });
+person(600, GENERAL, { mode: "stand", expr: "shock", seed: 3, wave: 1 });
+person(900, GENERAL, { side: true, mode: "march", expr: "shock", seed: 3, phase: 0.2 });
+person(1200, CHIEF, { mode: "stand", expr: "grin", seed: 9, wave: 0.6, facing: -1 });
+person(1500, hunter(0), { mode: "stand", expr: "stern", seed: 11 });
+person(1800, beater(1), { mode: "stand", expr: "nervous", seed: 12, whip: 0.3 });
+person(2100, FARMER, { mode: "stand", expr: "smile_closed", seed: 14 });
+const sm = (x, y, fn) => { const c = document.createElement("canvas"); c.width = 512; c.height = 512; fn(c.getContext("2d")); g.drawImage(c, x, y, 320, 320); };
+sm(0, 560, (k) => drawRabbit(k, 0, 0)); sm(330, 560, (k) => drawRabbit(k, 1, 0.5)); sm(660, 560, (k) => drawRabbit(k, 2, 0.25, { look: 1 }));
+sm(990, 560, (k) => drawRabbitFront(k, 3, 0)); sm(1320, 560, (k) => drawRabbitFront(k, 0, 1)); sm(1650, 560, drawCabbage); sm(1980, 560, (k) => drawExclaim(k, 1));
+const hc = document.createElement("canvas"); hc.width = 600; hc.height = 480; drawHutch(hc.getContext("2d")); g.drawImage(hc, 0, 900, 600, 480);
+window.done = true;
+</script></body></html>
