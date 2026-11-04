@@ -22,8 +22,9 @@ Read this whole file before doing anything. It is the standing brief for every a
 1. Read the board (`videos`, ordered by `order`) and `learnings`. Find the next free slot: the earliest of 10:00/12:00/18:00 IST,
    at least 3 hours from now, not already taken by any board row's `slot` field or any Metricool scheduled post
    (`getScheduledPosts`). If the next 3 slots are all taken, stop: the queue is full enough.
-2. If a board row has `audio: done` and `video: todo`, build that one (oldest first). Otherwise make a new video (sections 2-4).
-3. Create the board row immediately (`video: doing`, `slot` reserved) so parallel runs never take the same slot.
+2. If a board row has `audio: done` and `video: todo` and NO `builder: "chat"` field, build that one (oldest first). Rows with
+   `builder: "chat"` are being built by the owner's chat session: never touch them, but treat their `slot` as taken. Otherwise make a new video (sections 2-4).
+3. Create the board row immediately (`video: doing`, `slot` reserved as ISO time with +05:30, `builder: "auto"`) so parallel runs never take the same slot.
 4. Never start a second video in the same run. Never leave a row stuck on `doing`: on any failure write `notes` with the reason.
 
 ## 2. Strategy (the owner's framework, run silently, write the card to the board)
