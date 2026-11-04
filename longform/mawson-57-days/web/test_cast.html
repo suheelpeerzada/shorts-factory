@@ -1,0 +1,22 @@
+<!doctype html><html><body style="margin:0;background:#cfe3f2">
+<canvas id="c" width="2700" height="1100"></canvas>
+<script type="module">
+import * as C from "./cast.js";
+const cv = document.getElementById("c"), g = cv.getContext("2d");
+g.fillStyle = "#dde9f4"; g.fillRect(0, 0, 2700, 1100);
+const person = (x, o, opts) => { const c = document.createElement("canvas"); c.width = 1200; c.height = 2000; C.drawPerson(c.getContext("2d"), o, opts); g.drawImage(c, x, 0, 300, 500); };
+person(0, C.MAWSON, { mode: "stand", expr: "stern", seed: 3, facing: 1 });
+person(300, C.MAWSON_GAUNT, { mode: "stand", expr: "pained", seed: 3 });
+person(600, C.MAWSON, { side: true, mode: "march", expr: "stern", seed: 3, phase: 0.2, tilt: 12 });
+person(900, C.NINNIS, { mode: "stand", expr: "smile", seed: 5 });
+person(1200, C.MERTZ, { mode: "stand", expr: "laugh", seed: 7, wave: 0.7 });
+person(1500, C.MERTZ_SICK, { mode: "sit", expr: "dazed", seed: 7 });
+person(1800, C.hutman(0), { mode: "stand", expr: "shock", seed: 11 });
+person(2100, C.MAWSON_CAP, { mode: "sit", expr: "nervous", seed: 3 });
+person(2400, C.MAWSON_SUIT, { mode: "stand", expr: "smile", seed: 3 });
+const sm = (x, y, fn) => { const c = document.createElement("canvas"); c.width = 512; c.height = 512; fn(c.getContext("2d")); g.drawImage(c, x, y, 256, 256); };
+sm(0, 560, (k) => C.drawHusky(k, 0, 0.1, { pant: 1 })); sm(260, 560, (k) => C.drawHusky(k, 1, 0.4)); sm(520, 560, (k) => C.drawHusky(k, 2, 0, { tired: 1 })); sm(780, 560, (k) => C.drawHusky(k, 3, 0, { lie: 1 }));
+sm(1040, 560, C.drawStove); sm(1300, 560, C.drawFuel); sm(1560, 560, (k) => C.drawBag(k)); sm(1820, 560, C.drawFoodBag); sm(2080, 560, C.drawNote); sm(2340, 560, C.drawDiary);
+sm(0, 830, C.drawOrange); sm(260, 830, C.drawPineapple); sm(520, 830, C.drawTin); sm(780, 830, C.drawCrampon); sm(1040, 830, C.drawQuestion); sm(1300, 830, C.drawZzz); sm(1560, 830, C.drawHeart); sm(1820, 830, (k) => C.drawSnowPuff(k, 0.3)); sm(2080, 830, C.drawExclaim);
+window.done = true;
+</script></body></html>

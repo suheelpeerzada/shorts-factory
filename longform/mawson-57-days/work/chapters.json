@@ -1,0 +1,119 @@
+{
+ "gap_before_day_card": 1.5,
+ "total_secs": 792.58,
+ "fps": 24,
+ "frames": 19022,
+ "elevenlabs_flow": "sbjWonj5slWAVrbpAwTK",
+ "voice_id": "pVnrL6sighQX7hVz89cp",
+ "model": "eleven_v4",
+ "chapters": [
+  {
+   "ch": 0,
+   "title": "INTRO",
+   "start": 0.0,
+   "dur": 64.56,
+   "file": "voice/ch00.mp3",
+   "generation_id": "zkwE62AmnIf82PWB48xp",
+   "words": 171
+  },
+  {
+   "ch": 1,
+   "title": "DAY 1",
+   "start": 66.06,
+   "dur": 77.52,
+   "file": "voice/ch01.mp3",
+   "generation_id": "zF5TxA4iflNtztwV58Rc",
+   "words": 203
+  },
+  {
+   "ch": 2,
+   "title": "DAY 2",
+   "start": 145.08,
+   "dur": 60.16,
+   "file": "voice/ch02.mp3",
+   "generation_id": "YywISq0lshD33v3QB9hs",
+   "words": 171
+  },
+  {
+   "ch": 3,
+   "title": "DAY 8",
+   "start": 206.74,
+   "dur": 66.08,
+   "file": "voice/ch03.mp3",
+   "generation_id": "jBxqyoltyWp2iLdbRD5Y",
+   "words": 181
+  },
+  {
+   "ch": 4,
+   "title": "DAY 16",
+   "start": 274.32,
+   "dur": 60.48,
+   "file": "voice/ch04.mp3",
+   "generation_id": "MFcmD3SdiGqbEtgRcFTV",
+   "words": 165
+  },
+  {
+   "ch": 5,
+   "title": "DAY 19",
+   "start": 336.3,
+   "dur": 54.16,
+   "file": "voice/ch05.mp3",
+   "generation_id": "spkm0EYL4Az9Jieks5lw",
+   "words": 150
+  },
+  {
+   "ch": 6,
+   "title": "DAY 26",
+   "start": 391.96,
+   "dur": 55.44,
+   "file": "voice/ch06.mp3",
+   "generation_id": "WKJlFGJO4kmcvdNfk2ni",
+   "words": 155
+  },
+  {
+   "ch": 7,
+   "title": "DAY 29",
+   "start": 448.9,
+   "dur": 60.4,
+   "file": "voice/ch07.mp3",
+   "generation_id": "a4EyiUwwmDw6mAb2CrdE",
+   "words": 161
+  },
+  {
+   "ch": 8,
+   "title": "DAY 35",
+   "start": 510.8,
+   "dur": 73.28,
+   "file": "voice/ch08.mp3",
+   "generation_id": "2kgMHtY42sW7DIK6kdH7",
+   "words": 192
+  },
+  {
+   "ch": 9,
+   "title": "DAY 47",
+   "start": 585.58,
+   "dur": 56.56,
+   "file": "voice/ch09.mp3",
+   "generation_id": "AHDpHrZuRoyEhULvOchF",
+   "words": 162
+  },
+  {
+   "ch": 10,
+   "title": "DAY 50",
+   "start": 643.64,
+   "dur": 59.92,
+   "file": "voice/ch10.mp3",
+   "generation_id": "QdUnUpHHDdN82ncNTri7",
+   "words": 161
+  },
+  {
+   "ch": 11,
+   "title": "DAY 57",
+   "start": 705.06,
+   "dur": 87.52,
+   "file": "voice/ch11.mp3",
+   "generation_id": "dzmKF4D5IbSj1tnthYca",
+   "words": 240
+  }
+ ]
+}
