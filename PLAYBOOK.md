@@ -15,7 +15,7 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
 | Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 every day (Metricool best-time data for this account) |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
-| Laptop folder (only when the laptop is linked) | C:\Users\suhee\Downloads\video edit claude ("yet to upload" -> "used") |
+| Storage | Cloud only. Never copy anything to the owner's laptop. Finished videos live as GitHub release assets until posted, then are deleted. |
 
 ## 1. One run = one finished, scheduled video
 
@@ -101,12 +101,11 @@ captions slightly below centre and inside platform safe zones, full-screen title
    `youtubeData: {title, type: "short", privacy: "public", madeForKids: false, category: "EDUCATION"}`,
    `instagramData: {type: "REEL", showReelOnFeed: true}`.
 4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `asset` (tag name).
-5. If the laptop is linked, also copy final.mp4 into "yet to upload".
 
 ## 6. Daily review and cleanup (separate scheduled task)
 
 - For every row whose slot has passed: if the post is no longer in `getScheduledPosts`, mark youtube/instagram `done`, delete the
-  release asset + tag, and (laptop linked) move the file from "yet to upload" to "used".
+  release asset + tag.
 - Pull analytics for posts 24 h+ old: Instagram reels (IGRE23 views, IGRE27 retention, IGRE24 avg watch, IGRE28 view rate,
   IGRE21 shares, IGRE12 saves, IGRE07 comments) and YouTube (YTVP06 views, YTVP08 avg view duration, YTVP11 comments, YTVP12 shares).
   Write them to the row's `stats`.
