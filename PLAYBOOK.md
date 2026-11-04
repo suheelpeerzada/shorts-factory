@@ -60,7 +60,7 @@ hit, flash) right there.
 Instagram caption: 2-line hook, then "Watch till the end 👀", then 5-7 hashtags (mix 2 broad: #history #didyouknow, 3 niche, 1-2 topic).
 Cover/thumbnail (every video): the opening title card, fully popped in, exported as a custom image. After `finish.sh`, grab the frame at
 1.6 s (`ffmpeg -ss 1.6 -i final.mp4 -frames:v 1 -q:v 2 cover.jpg`), check it shows the complete title, upload `cover.jpg` as a second
-release asset and pass its URL as `videoThumbnailUrl` (never also `videoCoverMilliseconds`). For series parts the title card shows the series
+file on the same temporary branch and pass its URL as `videoThumbnailUrl` (never also `videoCoverMilliseconds`). For series parts the title card shows the series
 title with the part badge right beside it ("PART 2", or "FINAL PART"), so the thumbnail carries both.
 
 **Engagement.** First comment (Metricool `firstCommentText`) = one comment-bait question that splits opinion
@@ -132,7 +132,7 @@ captions slightly below centre and inside platform safe zones, full-screen title
    `media: [video url]`, `videoThumbnailUrl: <cover url>`, `firstCommentText`, `text` = Instagram caption,
    `youtubeData: {title, type: "short", privacy: "public", tags, madeForKids: false, category: "EDUCATION"}`,
    `instagramData: {type: "REEL", showReelOnFeed: true}`. Metricool copies the files into its own storage (the response shows
-   static.metricool.com URLs); as soon as it succeeds, delete the branch: `git push origin --delete m-<slug>` (run in the repo clone).
+   static.metricool.com URLs); as soon as it succeeds, delete the branch: `gh api -X DELETE repos/suheelpeerzada/shorts-factory/git/refs/heads/m-<slug>` (git push --delete is refused).
 4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `postId`.
 
 ## 6. Daily review and cleanup (separate scheduled task)
