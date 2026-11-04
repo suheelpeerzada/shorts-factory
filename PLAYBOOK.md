@@ -12,7 +12,7 @@ Read this whole file before doing anything. It is the standing brief for every a
 | YouTube | channel UCSAEWVUBQz0llK9nzl6smvQ (via Metricool) |
 | Metricool brand (blogId) | 7873272, timezone Asia/Calcutta |
 | Production board (artifact) | https://claude.ai/artifact/LRCFDndSkAeADNZW5NNKj1, collection `videos`, plus `learnings` |
-| Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4`, `generations_count: 1` (ALWAYS 1 take, credits are limited) |
+| Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
 | Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 every day (Metricool best-time data for this account) |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
 | Laptop folder (only when the laptop is linked) | C:\Users\suhee\Downloads\video edit claude ("yet to upload" -> "used") |
@@ -48,7 +48,7 @@ first spoken sentence: a paradox stated as fact, under 12 words, no setup ("Napo
 3. 2-4 escalating beats, each bigger; one open loop must be opened by 5 s and paid off only at the end.
 4. Pivot ("You see,..." / "But...") that reveals the mechanism.
 5. Twist/payoff as the last words. The final line should make the first line land again (rewatch loop).
-Plain spoken English, numbers written as words, sentences of 6-15 words, no description of what the viewer already sees.
+Plain spoken English, years and numbers as digits, sentences of 6-15 words, no description of what the viewer already sees.
 
 **Retention plan.** Split into 5 s beats; every beat gets a visual change (cut, camera move, new prop, reaction) and something
 must move on screen at all times. Mark the 2 most likely drop-off points and put a pattern interrupt (zoom-punch, hero caption, SFX
@@ -71,7 +71,13 @@ Strategy card stored on the board row: `{series, angle, hook_style, title, capti
 
 - Check credits first: `mcp__ElevenLabs__creative_generate_speech` with `estimate_only: true`. If the account cannot cover it,
   set the row `audio: todo`, `notes: "Waiting for ElevenLabs credits"` and stop.
-- Generate once (`generations_count: 1`, never retry a generation call; poll `creative_get_flow_run_status`).
+- Best quality: always `model_id: "eleven_v4"` (ElevenLabs' newest, most expressive model; owner is on the Creator plan, 121k credits/month).
+  Direct the read with v4 audio tags placed right before the words they colour, changed only where delivery changes:
+  hook `[dramatically]`, tension `[nervous]` or `[curious]`, a `[pause]` (or an ellipsis) right before the twist, the punchline
+  `[sarcastic]` / `[softly]` / `[deadpan]` as fits, and sparing CAPITALS for one or two stressed words. Write years and numbers in normal
+  digits (v4 reads them naturally). Leave `voice_settings` out. Strip every `[tag]` from the caption text.
+- Generate once (`generations_count: 1`, ~700 credits; 3 videos/day fits the plan only with single takes; never retry a generation call;
+  poll `creative_get_flow_run_status`).
 - Download the audio to `voice.mp3`, then verify against the script with faster-whisper (kit `tools/tr.py`). If words differ,
   keep the audio and use what was actually said for captions.
 
@@ -89,7 +95,7 @@ captions slightly below centre and inside platform safe zones, full-screen title
 ## 5. Publish
 
 1. Make a posting copy: `ffmpeg -i final.mp4 -c:v libx264 -crf 23 -preset veryfast -c:a copy post.mp4` (~15 MB).
-2. Upload it as a release asset on this repo (tag `v-<slug>`), take the asset's browser_download_url.
+2. Upload it as a release asset on this repo (`gh release create v-<slug> post.mp4 -R suheelpeerzada/shorts-factory`) (tag `v-<slug>`), take the asset's browser_download_url.
 3. `createScheduledPost` (blogId 7873272) at the reserved slot, providers youtube + instagram, `autoPublish: true`,
    `media: [url]`, `videoCoverMilliseconds: 800`, `firstCommentText`, `text` = Instagram caption,
    `youtubeData: {title, type: "short", privacy: "public", madeForKids: false, category: "EDUCATION"}`,
