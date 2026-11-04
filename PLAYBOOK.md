@@ -138,7 +138,9 @@ captions slightly below centre and inside platform safe zones, full-screen title
 
 ## 6. Daily review and cleanup (separate scheduled task)
 
-- For every row whose slot has passed: if the post is no longer in `getScheduledPosts`, mark youtube/instagram `done` and delete any leftover `m-*` branch.
+- For every row whose slot has passed: read the post in `getScheduledPosts` (published posts stay listed). Each provider has a `status`:
+  `PUBLISHED` (store `publicUrl` on the row and mark that platform `done`), `PUBLISHING`/`PENDING` (wait), or an error status (write it in notes).
+  Make sure the `media` branch is empty (clear it if a run left files there).
 - Pull analytics for posts 24 h+ old: Instagram reels (IGRE23 views, IGRE27 retention, IGRE24 avg watch, IGRE28 view rate,
   IGRE21 shares, IGRE12 saves, IGRE07 comments) and YouTube (YTVP06 views, YTVP08 avg view duration, YTVP11 comments, YTVP12 shares).
   Write them to the row's `stats`.
