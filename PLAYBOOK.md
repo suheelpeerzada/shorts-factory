@@ -15,7 +15,7 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
 | Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 = standalone videos; 15:00 = the daily part of the running multi-part series (Metricool best-time data for this account). 4 videos/day, ~90k of the 121k monthly ElevenLabs credits. |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
-| Storage | Cloud only. Never copy anything to the owner's laptop. Posting copies live on a temporary `m-<slug>` branch only until Metricool has copied them, then the branch is deleted. |
+| Storage | Cloud only. Never copy anything to the owner's laptop. Posting copies live on the `media` branch only until Metricool has copied them (minutes), then the branch is cleared. |
 
 ## 1. One run = one finished, scheduled video
 
@@ -124,15 +124,16 @@ captions slightly below centre and inside platform safe zones, full-screen title
 
 1. Make a posting copy: `ffmpeg -i final.mp4 -c:v libx264 -crf 23 -preset veryfast -c:a copy -movflags +faststart post.mp4` (~15 MB)
    and the cover (title card only: render the frame at 1.6 s with an ASS file holding only the title-card events, no captions).
-2. Host them temporarily on an orphan branch of this public repo (GitHub releases are blocked for these sessions):
-   `T=$(mktemp -d); cd $T; git init -q; git checkout -q --orphan m-<slug>; cp post.mp4 <slug>.mp4; cp cover.jpg <slug>-cover.jpg;`
-   `git add -A; git commit -qm "Temporary posting copy"; git remote add origin https://github.com/suheelpeerzada/shorts-factory; git push -q origin m-<slug>`
-   URLs: `https://raw.githubusercontent.com/suheelpeerzada/shorts-factory/m-<slug>/<slug>.mp4` (and `-cover.jpg`). Check both return HTTP 200.
+2. Host them temporarily on the `media` branch of this public repo (force-push an orphan commit holding only this video's two files) (GitHub releases are blocked for these sessions):
+   `T=$(mktemp -d); cd $T; git init -q; git checkout -q --orphan media; cp post.mp4 <slug>.mp4; cp cover.jpg <slug>-cover.jpg;`
+   `git add -A; git commit -qm "Temporary posting copy"; git remote add origin https://github.com/suheelpeerzada/shorts-factory; git push -q -f origin media`.
+   One run at a time uses it: push, schedule, clear, all within a few minutes.
+   URLs: `https://raw.githubusercontent.com/suheelpeerzada/shorts-factory/media/<slug>.mp4` (and `-cover.jpg`). Check both return HTTP 200.
 3. `createScheduledPost` (blogId 7873272) at the reserved slot, providers youtube + instagram, `autoPublish: true`,
    `media: [video url]`, `videoThumbnailUrl: <cover url>`, `firstCommentText`, `text` = Instagram caption,
    `youtubeData: {title, type: "short", privacy: "public", tags, madeForKids: false, category: "EDUCATION"}`,
    `instagramData: {type: "REEL", showReelOnFeed: true}`. Metricool copies the files into its own storage (the response shows
-   static.metricool.com URLs); as soon as it succeeds, delete the branch: `gh api -X DELETE repos/suheelpeerzada/shorts-factory/git/refs/heads/m-<slug>` (git push --delete is refused).
+   static.metricool.com URLs); as soon as it succeeds, clear the branch (deleting branches is refused here): in a fresh dir `git init -q; git checkout -q --orphan media; git commit -q --allow-empty -m "Cleared after posting"; git remote add origin https://github.com/suheelpeerzada/shorts-factory; git push -q -f origin media`.
 4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `postId`.
 
 ## 6. Daily review and cleanup (separate scheduled task)
