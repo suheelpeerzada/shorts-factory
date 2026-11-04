@@ -58,7 +58,10 @@ hit, flash) right there.
 
 **Packaging.** 10 YouTube titles, ranked by CTR; use the best: short hook + one emoji + `#shorts` (under 60 chars).
 Instagram caption: 2-line hook, then "Watch till the end 👀", then 5-7 hashtags (mix 2 broad: #history #didyouknow, 3 niche, 1-2 topic).
-Cover: the title-card frame (`videoCoverMilliseconds: 800`).
+Cover/thumbnail (every video): the opening title card, fully popped in, exported as a custom image. After `finish.sh`, grab the frame at
+1.6 s (`ffmpeg -ss 1.6 -i final.mp4 -frames:v 1 -q:v 2 cover.jpg`), check it shows the complete title, upload `cover.jpg` as a second
+release asset and pass its URL as `videoThumbnailUrl` (never also `videoCoverMilliseconds`). For series parts the title card shows the series
+title with the part badge right beside it ("PART 2", or "FINAL PART"), so the thumbnail carries both.
 
 **Engagement.** First comment (Metricool `firstCommentText`) = one comment-bait question that splits opinion
 ("Would you have surrendered in 1974?"). Add a share trigger line to the caption when natural ("Send this to someone who...").
@@ -82,7 +85,7 @@ Purpose: attachment and binge. One series runs at a time; it gets one part per d
   then a fresh hook. Escalate. End on a cliffhanger: cut at the moment of maximum tension with an open question; never resolve it.
   The final part pays everything off and ends with "Follow for the next story."
 - **Packaging.** Never reveal the total number of parts and never mention a release time anywhere (video, title, caption, comment).
-  Title card shows a big "PART 2" badge under the series name ("FINAL PART" on the last one). YouTube title: `<Series title> (Part 2) <emoji> #shorts`.
+  Title card: the series title with a big "PART 2" badge right beside it ("FINAL PART" on the last one); this is also the thumbnail. YouTube title: `<Series title> (Part 2) <emoji> #shorts`.
   Instagram caption: 2-line hook, "Part 2. Watch Part 1 on my profile 👆", "Watch till the end 👀", hashtags incl. #part2 #series.
   First comment: an opinion-splitting question about what happens next ("Who do you think wins? 👇"), plus "Follow so you don't miss the next part".
   Final part: title `<Series title> (Final Part)`, first comment a discussion question about the ending.
@@ -122,7 +125,7 @@ captions slightly below centre and inside platform safe zones, full-screen title
 1. Make a posting copy: `ffmpeg -i final.mp4 -c:v libx264 -crf 23 -preset veryfast -c:a copy post.mp4` (~15 MB).
 2. Upload it as a release asset on this repo (`gh release create v-<slug> post.mp4 -R suheelpeerzada/shorts-factory`) (tag `v-<slug>`), take the asset's browser_download_url.
 3. `createScheduledPost` (blogId 7873272) at the reserved slot, providers youtube + instagram, `autoPublish: true`,
-   `media: [url]`, `videoCoverMilliseconds: 800`, `firstCommentText`, `text` = Instagram caption,
+   `media: [video url]`, `videoThumbnailUrl: <cover.jpg url>`, `firstCommentText`, `text` = Instagram caption,
    `youtubeData: {title, type: "short", privacy: "public", madeForKids: false, category: "EDUCATION"}`,
    `instagramData: {type: "REEL", showReelOnFeed: true}`.
 4. Board row: `video: done`, `youtube`/`instagram`: `doing` (scheduled), `slot`, `plannerUrl`, `asset` (tag name).
