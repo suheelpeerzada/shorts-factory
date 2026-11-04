@@ -88,7 +88,7 @@ assert i == len(words)
 
 def size(k, sc): return int((KEY if k in ("key", "num", "hero") else BASE) * sc)
 def width(items, sc):
-    return sum(ImageFont.truetype(FONT, size(it["kind"], sc)).getlength(it["txt"] + " ") for it in items) - ImageFont.truetype(FONT, int(BASE * sc)).getlength(" ")
+    return sum(ImageFont.truetype(FONT, size(it["kind"], sc)).getlength(it["txt"] + " ") for it in items if it["txt"]) - ImageFont.truetype(FONT, int(BASE * sc)).getlength(" ")
 def ts(t):
     cs = int(round(max(0, t) * 100)); return f"{cs//360000}:{cs//6000%60:02d}:{cs//100%60:02d}.{cs%100:02d}"
 def rrect(w, h, r):
@@ -119,6 +119,7 @@ for ci, items in enumerate(chunks):
         head = f"{{\\an5{mv}{pop}}}" if k == 0 else f"{{\\an5\\pos(540,{Y})}}"
         parts = []
         for j, w in enumerate(items):
+            if not w["txt"]: continue  # hidden word (=~): no extra space
             fs = size(w["kind"], sc)
             if hero: col = INKC if w["kind"] == "hero" else INKC; act = INKC
             else:
