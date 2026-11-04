@@ -13,15 +13,15 @@ Read this whole file before doing anything. It is the standing brief for every a
 | Metricool brand (blogId) | 7873272, timezone Asia/Calcutta |
 | Production board (artifact) | https://claude.ai/artifact/LRCFDndSkAeADNZW5NNKj1, collection `videos`, plus `learnings` |
 | Voice | ElevenLabs "Henry - Deep, Professional, and Soothing", voice_id `pVnrL6sighQX7hVz89cp`, model `eleven_v4` with audio tags, `generations_count: 1` (Creator plan, 121k credits/month) |
-| Posting slots (IST, both platforms) | 10:00, 12:00, 18:00 = standalone videos; 15:00 = the daily part of the running multi-part series (Metricool best-time data for this account). 4 videos/day, ~90k of the 121k monthly ElevenLabs credits. |
+| Posting slots (IST, both platforms) | Shorts: 10:00 and 18:00 = standalone, 15:00 = the daily part of the running multi-part series (Metricool best-time data). 3 shorts/day ~63k credits/month. Plus ONE weekly long video on YouTube, Sunday 16:00 IST (section 7), ~45k credits/month. Total ~108k of 121k. (Older queued rows may hold 12:00 slots; respect them, but never create new 12:00 slots.) |
 | Video spec | 1080x1920, 30 fps, 35-50 s, H.264 + AAC, voice unchanged |
 | Storage | Cloud only. Never copy anything to the owner's laptop. Posting copies live on the `media` branch only until Metricool has copied them (minutes), then the branch is cleared. |
 
 ## 1. One run = one finished, scheduled video
 
-1. Read the board (`videos`, ordered by `order`), `learnings` and `series`. Find the next free slot: the earliest of 10:00/12:00/15:00/18:00 IST,
+1. Read the board (`videos`, ordered by `order`), `learnings` and `series`. Find the next free slot: the earliest of 10:00/15:00/18:00 IST,
    at least 3 hours from now, not already taken by any board row's `slot` field or any Metricool scheduled post
-   (`getScheduledPosts`). If the next 4 slots are all taken, stop: the queue is full enough.
+   (`getScheduledPosts`). If the next 3 slots are all taken, stop: the queue is full enough.
    If the slot is 15:00, this run makes the next SERIES part (section 2b); any other slot makes a standalone video.
 2. If a board row has `audio: done` and `video: todo` and NO `builder: "chat"` field, build that one (oldest first). Rows with
    `builder: "chat"` are being built by the owner's chat session: never touch them, but treat their `slot` as taken. Otherwise make a new video (sections 2-4).
@@ -145,3 +145,34 @@ captions slightly below centre and inside platform safe zones, full-screen title
 - Update `learnings` (doc `current`): rank videos by retention and shares; record which series, hook styles, lengths, opening visuals,
   and topics win or lose, with numbers. Keep it short (top 10 rules) so production runs can apply it.
 - Production then leans into winners: more of the winning series/hook style/length, fewer of the losers.
+
+## 7. Weekly long video (YouTube only, 10-20 min, Sunday 16:00 IST)
+
+Format: a day-by-day survival story, "N Days ..." (reference style the owner likes: "30 Days Trapped in a Zoo", "Day 1 -> Day 30").
+Alternate weeks: TRUE survival story (real people: Shackleton's Endurance crew, Alexander Selkirk, Juliane Koepcke, Onoda, the Andes
+survivors told respectfully and never graphic, Apollo 13, Mawson...) and FICTIONAL era-survival with our own original cartoon hero
+("I Survived 30 Days in Medieval London", "50 Days on a Pirate Ship"), clearly fiction, historically accurate world. Series continue
+across weeks as parts ("Day 31 -> Day 60, Part 2") when the story is big; same no-part-count / no-release-time rules as shorts.
+
+- **Spec.** 1920x1080 (16:9), 24 fps, 10-14 min target (~1,700-2,300 words). Chapters every ~60-90 s titled "DAY 7" etc. with a
+  day-counter card (big "DAY 7" slam + whoosh). Each chapter: a new problem, a choice, a consequence; open loop carried across chapters;
+  every 20-30 s a visual change of place/scale; recurring cliffhanger at each day card. Ending: payoff + "Which day would you have given up?".
+- **Thumbnail (custom image, 1280x720).** Split screen: left panel "DAY 1" (white text, our hero fresh/clean), right panel "DAY 30"
+  (red/orange text, hero changed: dirty, bandaged, bearded, triumphant or haunted), bold black divider, a yellow tag with the place
+  ("ON AN ISLAND"), and for parts a yellow "PART 2" badge. Draw it with the same toon cast + Montserrat Black, high contrast.
+  Title: `<N> Days <Trapped/Stranded/Surviving> <Place>` (+ " (Part 2)").
+- **Credits.** Voice in chapters of <= 3,000 characters per `creative_generate_speech` call (eleven_v4, Henry, audio tags, 1 take each).
+  Check `estimate_only` for the whole script first; if it would drop the month below ~15k remaining credits, make it shorter.
+- **Rendering is split across runs** (a full render at shorts quality takes 10+ hours): use widescreen, MSAA 2, DOF only on close-ups,
+  and reuse a few richly built locations per episode.
+  - THU run "Long video: plan + build": strategy framework, script, fact-check, voiceover (all chapters), timing, world + cast, stills check;
+    commit the project to `longform/<slug>/` (no frames, no audio over 50 MB; voice chapters as mp3 are fine), set board row
+    `{type: "long", slug, status: "built", segments: 4, frames: N}`.
+  - FRI runs "Long video: render segment k" (k = 1..4, same time): clone, `tools/setup.sh`, render frames for segment k
+    (`floor(N*(k-1)/4)` .. `floor(N*k/4)-1`), encode `seg<k>.mp4` (libx264 -crf 22, video only), push it to branch `lf-seg<k>`
+    (force-push an orphan commit with just that file), mark board `seg<k>: done`.
+  - SAT run "Long video: assemble + schedule": fetch the 4 segments, concat, mix audio (same rules as shorts), small bottom captions
+    (2-4 words, same palette, no boxes needed), chapter title cards, thumbnail; QA; host on `media` branch, `createScheduledPost` with
+    provider youtube only, `youtubeData: {title, type: "video", privacy: "public", tags, madeForKids: false, category: "ENTERTAINMENT"}`,
+    `videoThumbnailUrl`, a description with chapter timestamps in `text`, at Sunday 16:00 IST; then clear `media` and every `lf-seg*` branch.
+  - If a segment run failed, the SAT run renders the missing segment itself before assembling (it still has the whole day).
