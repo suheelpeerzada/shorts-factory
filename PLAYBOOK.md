@@ -189,3 +189,19 @@ across weeks as parts ("Day 31 -> Day 60, Part 2") when the story is big; same n
 - Captions must never cover the main content: put each caption at the top or the bottom, wherever the screen is clear.
 - Untested implementation parked on branch `captions-v2` (engine exports on-screen card boxes per frame,
   make_ass.py picks top/bottom from them; tools/upgrade_captions.py ports it to a project). Test it on stills before using.
+
+## Analytics learnings (YouTube, ~30-36 h after first uploads, 5 Nov) - apply to every new video
+Numbers: Emu War 2,041 views / 54.9% stayed / avg 0:25 of 0:39 (~64%) / +1 sub. Napoleon 1,280 views / 58.2% stayed /
+avg 0:23 of 0:41 (~57%) / +2 subs / 7% like rate. 96-98% of views from the Shorts feed. ~0.2% of engaged viewers subscribe.
+1. Hook loses 42-45% in the first seconds -> the first 2 s must show the climax image + 3-5 words of on-screen text,
+   and the voiceover opens with the stakes, not context ("The Australian army lost a war. To birds."). Readable with sound off.
+2. Viewers leave before the payoff -> target ~30 s (30-45 s max), twist delivered by ~20 s, last line loops back to the opening.
+   Something visual or audible changes at least every 4 s.
+3. Winning angle: animals that beat armies/empires. Run it as a named series ("Animals 1, Humans 0") with a recurring tag on
+   frame 1. Candidates: Great Sparrow Campaign, Wojtek the soldier bear, Cher Ami the WWI pigeon, cane toads in Australia,
+   mongooses in Hawaii.
+4. Specific subscribe ask in the last seconds/caption ("Follow for a new animal-vs-army story every day") + a pinned first
+   comment asking a question ("Which animal should win next?").
+5. Metadata: same title pattern every time (stakes + emoji), only 3-4 focused hashtags (#history #weirdhistory #animals).
+6. Judge each Short by stayed-to-watch and engaged views, not the public view counter. Re-check retention graphs ~2 days
+   after upload to see whether the drop is at second 1 or in the middle.
