@@ -205,3 +205,8 @@ avg 0:23 of 0:41 (~57%) / +2 subs / 7% like rate. 96-98% of views from the Short
 5. Metadata: same title pattern every time (stakes + emoji), only 3-4 focused hashtags (#history #weirdhistory #animals).
 6. Judge each Short by stayed-to-watch and engaged views, not the public view counter. Re-check retention graphs ~2 days
    after upload to see whether the drop is at second 1 or in the middle.
+
+## Facebook (added 5 Nov) - every post goes to Facebook too
+The brand's Facebook Page (Metricool facebookData 1329111743628082) is connected. Every Short: providers youtube + instagram
++ facebook, with "facebookData": {"type": "REEL", "title": "<the YouTube title without #shorts>"}. The weekly long video:
+youtube + facebook, with "facebookData": {"type": "POST", "title": "<the video title>"}. Same text, cover and first comment.
