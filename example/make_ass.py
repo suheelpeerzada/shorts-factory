@@ -1,4 +1,4 @@
-# Boxed 1-3 word captions + opening title card for the Napoleon short. Usage: python3 make_ass.py work/words.json out.ass
+# Boxed 1-3 word captions + opening title card for the Napoleon short. Usage: python3 make_ass.py work/words.json out.ass [frames_dir]
 import json, sys
 from PIL import ImageFont
 
@@ -65,8 +65,25 @@ import os
 FONT = os.path.expanduser("~/.fonts/Montserrat-Black.ttf")
 WHITE, YELLOW, CYAN, INKC = "&HFFFFFF&", "&H2EE0FF&", "&HFFE53D&", "&H261724&"
 BOXC = "&H241418&"  # dark plum box (BGR)
-BASE, KEY = 100, 116
-Y = 1400
+BASE, KEY = 74, 86          # compact captions (was 100/116)
+Y_BOT, Y_TOP = 1440, 330    # caption rows inside the Shorts/Reels safe zones
+PAD, BOXH, MAXW = 34, 1.18, 820
+# where the characters/props are, per frame (written by render.mjs as frames/bNNNN.json); optional 3rd arg
+import os, glob
+BOXES = {}
+if len(sys.argv) > 3 and os.path.isdir(sys.argv[3]):
+    for p in glob.glob(os.path.join(sys.argv[3], "b*.json")): BOXES[int(os.path.basename(p)[1:5])] = json.load(open(p))
+def busy(y, bw, bh, t0, t1):
+    """share of the caption's box area covered by on-screen content, averaged over the chunk"""
+    x0, x1, y0, y1 = 540 - bw / 2 - 24, 540 + bw / 2 + 24, y - bh / 2 - 24, y + bh / 2 + 24
+    fr = [f for f in range(int(t0 * 30), int(t1 * 30) + 1, 3) if f in BOXES] or [f for f in [int(t0 * 30)] if f in BOXES]
+    if not fr: return 0.0
+    tot = 0.0
+    for f in fr:
+        cov = 0.0
+        for a, b, c, d in BOXES[f]: cov += max(0, min(x1, c) - max(x0, a)) * max(0, min(y1, d) - max(y0, b))
+        tot += min(1.0, cov / ((x1 - x0) * (y1 - y0)))
+    return tot / len(fr)
 DUR = 40.75
 
 def tag(tok):
@@ -101,17 +118,23 @@ HPOP = "\\fscx45\\fscy45\\frz-4\\t(0,130,\\fscx114\\fscy114\\frz2)\\t(130,240,\\
 ev = []
 for ci, items in enumerate(chunks):
     hero = any(it["kind"] == "hero" for it in items)
-    sc = min(1.0, 900 / width(items, 1.0))
+    sc = min(1.0, MAXW / width(items, 1.0))
     st0 = max(0, items[0]["s"] - 0.04)
     nxt = chunks[ci + 1][0]["s"] - 0.04 if ci + 1 < len(chunks) else DUR
     en0 = min(nxt, items[-1]["e"] + 0.6) if ci + 1 < len(chunks) else DUR
-    bw, bh = int(width(items, sc) + 56), int(KEY * sc * 1.32)
+    bw, bh = int(width(items, sc) + PAD), int(KEY * sc * BOXH)
+    # sit at the bottom unless the content there is busier than at the top (sticky, to avoid jumping)
+    if st0 < 2.45: Y = Y_BOT
+    else:
+        cur = locals().get("Y", Y_BOT); oth = Y_TOP if cur == Y_BOT else Y_BOT
+        if busy(oth, bw, bh, st0, en0) < busy(cur, bw, bh, st0, en0) - 0.08: cur = oth
+        Y = cur
     pop = HPOP if hero else POP
     mv = f"\\move(540,{Y+18},540,{Y},0,130)"
     box = YELLOW if hero else BOXC
     balpha = "&H00&" if hero else "&H30&"
     # box: drawing centred by \an7 offset
-    ev.append(f"Dialogue: 1,{ts(st0)},{ts(en0)},Box,,0,0,0,,{{\\an5{mv}{pop}\\bord5\\3c{INKC}\\shad6\\4a&H90&\\1c{box}\\1a{balpha}\\p1}}{rrect(bw, bh, int(bh*0.32))}{{\\p0}}")
+    ev.append(f"Dialogue: 1,{ts(st0)},{ts(en0)},Box,,0,0,0,,{{\\an5{mv}{pop}\\bord4\\3c{INKC}\\shad4\\4a&H90&\\1c{box}\\1a{balpha}\\p1}}{rrect(bw, bh, int(bh*0.3))}{{\\p0}}")
     for k, it in enumerate(items):
         s0 = st0 if k == 0 else it["s"]
         e0 = en0 if k == len(items) - 1 else items[k + 1]["s"]
@@ -124,7 +147,7 @@ for ci, items in enumerate(chunks):
             if hero: col = INKC if w["kind"] == "hero" else INKC; act = INKC
             else:
                 col = {"norm": WHITE, "key": YELLOW, "num": CYAN}[w["kind"]]; act = YELLOW if w["kind"] == "norm" else col
-            bord = "\\bord0\\shad0" if hero else "\\bord3\\3c&H000000&\\shad0"
+            bord = "\\bord0\\shad0" if hero else "\\bord2\\3c&H000000&\\shad0"
             if j < k: parts.append(f"{{\\alpha&H00&\\fs{fs}\\c{col}{bord}}}{w['txt']}")
             elif j == k:
                 fade = "" if k == 0 else "\\alpha&H70&\\t(0,90,\\alpha&H00&)"

@@ -366,6 +366,39 @@ window.renderFrame = (f) => {
   dofMat.uniforms.cInf.value = d.cInf || 0;
   dofMat.uniforms.tC.value = rtInk.texture; dofMat.uniforms.tN.value = rtND.texture;
   quad.material = dofMat; renderer.setRenderTarget(null); renderer.render(postScene, postCam);
+  window.boxes = screenBoxes();
+};
+// ---------- where the content is on screen (for caption placement) ----------
+// For every visible card: the opaque part of its texture, projected to screen pixels [x0, y0, x1, y1].
+const opaqueCache = new Map();
+const opaqueUV = (tex) => {
+  if (!tex || !tex.image || !tex.image.getContext) return [0, 0, 1, 1];
+  if (opaqueCache.has(tex.uuid)) return opaqueCache.get(tex.uuid);
+  const img = tex.image, w = img.width, h = img.height, a = img.getContext("2d").getImageData(0, 0, w, h).data;
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0; y < h; y += 4) for (let x = 0; x < w; x += 4) if (a[(y * w + x) * 4 + 3] > 128) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  const r = x1 < 0 ? null : [x0 / w, y0 / h, (x1 + 4) / w, (y1 + 4) / h];
+  opaqueCache.set(tex.uuid, r); return r;
+};
+const pv = new THREE.Vector3();
+const screenBoxes = () => {
+  const out = [];
+  for (const c of pool.values()) {
+    const m = c.m; if (!m.visible) continue;
+    const uv = opaqueUV(m.material.map); if (!uv) continue;
+    if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+    const bb = m.geometry.boundingBox; m.updateMatrixWorld();
+    let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, front = false;
+    for (const u of [uv[0], uv[2]]) for (const v of [uv[1], uv[3]]) {
+      pv.set(bb.min.x + (bb.max.x - bb.min.x) * u, bb.max.y - (bb.max.y - bb.min.y) * v, 0).applyMatrix4(m.matrixWorld).project(camera);
+      if (pv.z < 1) front = true;
+      const sx = (pv.x * 0.5 + 0.5) * W, sy = (0.5 - pv.y * 0.5) * H;
+      x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy);
+    }
+    if (!front || x1 < 0 || x0 > W || y1 < 0 || y0 > H) continue;
+    out.push([Math.max(0, x0), Math.max(0, y0), Math.min(W, x1), Math.min(H, y1)].map(Math.round));
+  }
+  return out;
 };
 window.TOTAL = S.TOTAL;
 window.ready = true;

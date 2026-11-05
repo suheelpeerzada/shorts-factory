@@ -20,8 +20,9 @@ await p.waitForFunction("window.ready === true", null, { timeout: 120000 });
 const t0 = Date.now(); let n = 0;
 for (const f of frames) {
   const file = path.join(outDir, `f${String(f).padStart(4, "0")}.jpg`);
-  if (process.env.RESUME && fs.existsSync(file)) continue;
-  const data = await p.evaluate((f) => { window.renderFrame(f); return document.getElementById("c").toDataURL("image/jpeg", 0.95); }, f);
+  if (process.env.RESUME && fs.existsSync(file) && fs.existsSync(path.join(outDir, `b${String(f).padStart(4, "0")}.json`))) continue;
+  const [data, boxes] = await p.evaluate((f) => { window.renderFrame(f); return [document.getElementById("c").toDataURL("image/jpeg", 0.95), window.boxes || []]; }, f);
+  fs.writeFileSync(path.join(outDir, `b${String(f).padStart(4, "0")}.json`), JSON.stringify(boxes));
   fs.writeFileSync(file + ".tmp", Buffer.from(data.split(",")[1], "base64")); fs.renameSync(file + ".tmp", file);
   n++; if (n % 10 === 0 || n === frames.length) console.log(`frame ${f} done ${n}/${frames.length} ${((Date.now() - t0) / n / 1000).toFixed(2)}s/f`);
 }
