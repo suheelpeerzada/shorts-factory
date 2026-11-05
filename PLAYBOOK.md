@@ -183,3 +183,9 @@ across weeks as parts ("Day 31 -> Day 60, Part 2") when the story is big; same n
     provider youtube only, `youtubeData: {title, type: "video", privacy: "public", tags, madeForKids: false, category: "ENTERTAINMENT"}`,
     `videoThumbnailUrl`, a description with chapter timestamps in `text`, at Sunday 16:00 IST; then clear `media` and every `lf-seg*` branch.
   - If a segment run failed, the SAT run renders the missing segment itself before assembling (it still has the whole day).
+
+## Caption feedback (user, 5 Nov) - apply to every new video
+- Caption boxes are too big: make them smaller (smaller font, tighter box padding).
+- Captions must never cover the main content: put each caption at the top or the bottom, wherever the screen is clear.
+- Untested implementation parked on branch `captions-v2` (engine exports on-screen card boxes per frame,
+  make_ass.py picks top/bottom from them; tools/upgrade_captions.py ports it to a project). Test it on stills before using.
