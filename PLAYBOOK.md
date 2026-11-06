@@ -255,3 +255,5 @@ youtube_title, first_comment, tags}); also push a copy to repo branch `daily` as
 stage those files, QA them, host on `media`, schedule in Metricool at the job's slot on YT+IG+FB, clear `media`, and
 move the posted job folder to daily\_posted\. Board status flow: script -> audio -> built ("ready to
 render") -> rendered -> scheduled.
+3-DAY BUFFER (owner, 6 Nov): every daily run tops up jobs so all 08:00/20:00 slots for the next 3 days are covered
+(max 6 jobs waiting), earliest slot first, one job at a time. The owner renders the batch whenever convenient.
