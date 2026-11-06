@@ -223,3 +223,9 @@ Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxf
 - Look: still a toon style (outlined, flat-ish), but bright saturated colours, drawn texture (brick lines, tiles),
   flat light-shaft shapes, soft gradients, glows and window light at night. Achievable in our engine.
 - Captions: one word at a time, white with black outline, no box, centred mid-screen.
+
+## Posting schedule (owner, 6 Nov) - overrides every earlier slot/time in this file
+- Shorts: 2 per day, 08:00 and 20:00 IST (YouTube + Instagram + Facebook). The daily 11:07 run makes tomorrow's two.
+  The 20:00 slot carries the next part of a running multi-part series; otherwise both are standalone.
+- Long video: every Friday 17:00 IST (YouTube + Facebook). Pipeline: Tue 01:23 plan + build -> Wed 01:37-01:40 render
+  segments 1-4 -> Thu 01:51 assemble + schedule. Segment and assemble runs take the "built" long row with the EARLIEST slot.
