@@ -269,3 +269,6 @@ Lighting: deep saturated colour grade, blue nights with warm practical lights, b
 Storytelling: open on the strangest fact stated flat (no "imagine"), characters' lines quoted mid-narration
 ("...and he goes, ..."), "You see," pivots to the real explanation, which lands at the very end with a sting.
 55-65 s, a new picture every ~2 s, never a silent second.
+Laptop hand-off gotchas: device_commit_files can deliver a STALE copy when the same staged filename is reused - give
+every hand-off file a new name (e.g. _v2, a timestamp). Deleting is off in the owner's folders, so tar can't replace
+files: extract to /tmp on the device, then `cat src > dest` over each file.
