@@ -1,0 +1,103 @@
+{
+ "source": "audio/narrator_take1.mp3 (ElevenLabs, voice Clark)",
+ "speed": 1.25,
+ "method": "sentence boundaries from ffmpeg silencedetect (-38 dB, >=0.22 s), times divided by speed; full mix with character lines not built yet",
+ "sentences": [
+  {
+   "i": 1,
+   "text": "In 2025, a town in Sweden put its church on wheels and drove it five kilometres across town.",
+   "start": 0.0,
+   "end": 5.176,
+   "start_original": 0.0,
+   "end_original": 6.47
+  },
+  {
+   "i": 2,
+   "text": "Kiruna sits far above the Arctic Circle, right on top of a giant iron ore mine.",
+   "start": 5.664,
+   "end": 9.736,
+   "start_original": 7.08,
+   "end_original": 12.17
+  },
+  {
+   "i": 3,
+   "text": "The mine built the town in 1900.",
+   "start": 10.288,
+   "end": 11.952,
+   "start_original": 12.86,
+   "end_original": 14.94
+  },
+  {
+   "i": 4,
+   "text": "Now it was digging under the streets.",
+   "start": 12.312,
+   "end": 14.184,
+   "start_original": 15.39,
+   "end_original": 17.73
+  },
+  {
+   "i": 5,
+   "text": "But the deeper it dug, the more the ground above it cracked.",
+   "start": 14.6,
+   "end": 17.176,
+   "start_original": 18.25,
+   "end_original": 21.47
+  },
+  {
+   "i": 6,
+   "text": "Then in 2004, the town decided to move its whole centre three kilometres east.",
+   "start": 17.544,
+   "end": 21.872,
+   "start_original": 21.93,
+   "end_original": 27.34
+  },
+  {
+   "i": 7,
+   "text": "The wooden church was built in 1912 and weighs about 670 tonnes.",
+   "start": 22.304,
+   "end": 26.392,
+   "start_original": 27.88,
+   "end_original": 32.99
+  },
+  {
+   "i": 8,
+   "text": "You see, they didn't take it apart.",
+   "start": 26.792,
+   "end": 28.08,
+   "start_original": 33.49,
+   "end_original": 35.1
+  },
+  {
+   "i": 9,
+   "text": "They lifted it onto steel beams and slid 224 wheels underneath.",
+   "start": 28.424,
+   "end": 32.184,
+   "start_original": 35.53,
+   "end_original": 40.23
+  },
+  {
+   "i": 10,
+   "text": "It crept along at half a kilometre an hour.",
+   "start": 32.608,
+   "end": 34.472,
+   "start_original": 40.76,
+   "end_original": 43.09
+  },
+  {
+   "i": 11,
+   "text": "So for two days in August, crowds walked beside a church rolling through town.",
+   "start": 34.848,
+   "end": 38.448,
+   "start_original": 43.56,
+   "end_original": 48.06
+  },
+  {
+   "i": 12,
+   "text": "The town moved east, and this time, the church came with it.",
+   "start": 39.0,
+   "end": 41.552,
+   "start_original": 48.75,
+   "end_original": 51.94
+  }
+ ]
+}

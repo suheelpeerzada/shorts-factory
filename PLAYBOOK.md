@@ -230,3 +230,27 @@ the lens, the threat is behind/next to the viewer, breath panned to both ears, l
 episode beats, fear rules and consistency rules (sister: 12, yellow raincoat, dark braid, red flashlight; black stone castle,
 candlelight + blue moonlight). Use per-character voices (sister = young girl voice from the cast). Not started yet - waiting
 for the owner's go after the lighthouse test video.
+
+## NEW PIPELINE (owner, 6 Nov evening) - overrides sections 3-5 for building/rendering
+Look = the Remotion + three.js house style from the Kiruna church short (skill "animated-3d-story-video"): real 3D worlds
+of painted flat-colour models with ink #351f22, 2D flat characters inside them, camera ALWAYS moving on Catmull-Rom paths
+timed with warpU, depth of field + vignette, 3-band toon light, labels inside the world. Template: remotion_kit/ (copy
+it; keep lib/toon.js, kit.js, char.js, camera.js, Stage.jsx; write new worlds/*.js + Full.jsx + times.js per video).
+Owner keeps OUR storytelling and subtitles:
+- Story/script: our rules (sections 1-2b + analytics learnings): stakes in the first sentence, ~35-50 s, twist by ~20 s,
+  ending that loops back; told as a story with 1-3 short CHARACTER lines.
+- Voices: Henry narrates (pVnrL6sighQX7hVz89cp); each character gets its own fitting voice from the board's
+  `voices/cast` doc (same character = same voice forever; record it in cast.assignments). eleven_v4, generations_count 1.
+  Download clips (elevenlabsusercontent.com is allowed now), trim pauses > 0.3 s, build public/voiceover.wav (music + SFX
+  mixed in, -14 LUFS) and word timings with faster-whisper (tools/tr.py) -> src/times.js.
+- Subtitles: ONE WORD at a time, no box, centred at 62% height, white for the narrator, each character its own colour
+  (remotion_kit/src/Overlays.jsx: <Captions/> + <TitleCard/> with the full-screen title and PART n badge for series).
+- Rendering happens on the OWNER'S PC (RTX 3050), never in the cloud. Cloud may only render half-scale stills
+  (npx remotion still ... --scale=0.5 --gl=swangle) to check framing. 1080x1920, 30 fps.
+Hand-off: push each finished project (src/ + public/ incl. voiceover.wav, no node_modules) to the repo branch `daily`
+under jobs/<YYYY-MM-DD>_<HHMM>_<slug>/ (+ job.json {slot, title, caption, youtube_title, first_comment, tags}).
+The owner double-clicks "YT Shorts\render_today.bat", which downloads the branch, renders every job not yet rendered
+into "YT Shorts\output\daily\<job>.mp4" and a cover "<job>.jpg" (frame at 1.6 s). A separate scheduled task linked to
+the owner's computer then stages those files, QAs them, hosts them on `media`, schedules them in Metricool at the job's
+slot, clears `media`, and removes posted jobs from `daily`. Board status flow: script -> audio -> built ("ready to
+render") -> rendered -> scheduled.
