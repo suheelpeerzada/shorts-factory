@@ -247,10 +247,11 @@ Owner keeps OUR storytelling and subtitles:
   (remotion_kit/src/Overlays.jsx: <Captions/> + <TitleCard/> with the full-screen title and PART n badge for series).
 - Rendering happens on the OWNER'S PC (RTX 3050), never in the cloud. Cloud may only render half-scale stills
   (npx remotion still ... --scale=0.5 --gl=swangle) to check framing. 1080x1920, 30 fps.
-Hand-off: push each finished project (src/ + public/ incl. voiceover.wav, no node_modules) to the repo branch `daily`
-under jobs/<YYYY-MM-DD>_<HHMM>_<slug>/ (+ job.json {slot, title, caption, youtube_title, first_comment, tags}).
-The owner double-clicks "YT Shorts\render_today.bat", which downloads the branch, renders every job not yet rendered
-into "YT Shorts\output\daily\<job>.mp4" and a cover "<job>.jpg" (frame at 1.6 s). A separate scheduled task linked to
-the owner's computer then stages those files, QAs them, hosts them on `media`, schedules them in Metricool at the job's
-slot, clears `media`, and removes posted jobs from `daily`. Board status flow: script -> audio -> built ("ready to
+Hand-off: write each finished project (src/ + public/ incl. voiceover.wav, no node_modules) straight into the owner's
+folder "YT Shorts\daily\<YYYY-MM-DD>_<HHMM>_<slug>\" through the laptop link (+ job.json {slot, title, caption,
+youtube_title, first_comment, tags}); also push a copy to repo branch `daily` as a backup. The owner double-clicks
+"YT Shorts\render_today.bat": it renders every job in daily\ not yet in "output\daily\<job>.mp4" (+ cover <job>.jpg at
+1.6 s) using a shared engine in build\engine. Then (in chat when the owner says "rendered", or the next scheduled run)
+stage those files, QA them, host on `media`, schedule in Metricool at the job's slot on YT+IG+FB, clear `media`, and
+move the posted job folder to daily\_posted\. Board status flow: script -> audio -> built ("ready to
 render") -> rendered -> scheduled.
