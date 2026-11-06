@@ -257,3 +257,15 @@ move the posted job folder to daily\_posted\. Board status flow: script -> audio
 render") -> rendered -> scheduled.
 3-DAY BUFFER (owner, 6 Nov): every daily run tops up jobs so all 08:00/20:00 slots for the next 3 days are covered
 (max 6 jobs waiting), earliest slot first, one job at a time. The owner renders the batch whenever convenient.
+
+## Reference study: Ricks Clips (owner's references folder, 6 Nov)
+Characters: big round heads, thin limbs, ONE signature item each (chef hat, captain hat, moustache, glasses, nightcap,
+bun). Faces act every line: use char.js expressions (opts.expr: neutral | alarmed | shout | scared | grin | smug | sad |
+angry | calm) and change them per line; never leave a shouting/scared character on the default face. Old people:
+{ old: true, beard, moustache, brows } (white tufts, wrinkles). Outfit must fit the job ({ outfit: 'sweater' }, hats
+'peaked', 'beanie', 'cap', 'bowler'); suit + tie only for office people.
+Lighting: deep saturated colour grade, blue nights with warm practical lights, bloom on every lamp/beam/window
+(Stage bloom/grade props), searchlight beams through haze, rain/particles. Close-ups that fill the frame with a face.
+Storytelling: open on the strangest fact stated flat (no "imagine"), characters' lines quoted mid-narration
+("...and he goes, ..."), "You see," pivots to the real explanation, which lands at the very end with a sting.
+55-65 s, a new picture every ~2 s, never a silent second.

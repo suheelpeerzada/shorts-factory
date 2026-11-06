@@ -61,10 +61,17 @@ export function drawPerson(g, P, pose) {
   shape(g, [[cx - 40, hipY - 72], [cx - 14, hipY - 72], [cx - 14, hipY - 48], [cx - 40, hipY - 48]], P.jacket2, 3, nz, 40); // pocket patch
   g.restore();
   inkPath(g, torso, true, lw, nz, 50);
-  // white collar and tie
-  shape(g, [[cx - 22, shY - 4], [cx, shY + 16], [cx - 6, shY + 26], [cx - 26, shY + 8]], '#fbf6ea', 3.5, nz, 60);
-  shape(g, [[cx + 22, shY - 4], [cx, shY + 16], [cx + 6, shY + 26], [cx + 26, shY + 8]], '#fbf6ea', 3.5, nz, 62);
-  shape(g, [[cx, shY + 16], [cx + 7, shY + 30], [cx + 4, shY + 70], [cx, shY + 80], [cx - 4, shY + 70], [cx - 7, shY + 30]], P.tie, 3, nz, 64);
+  if (P.outfit === 'sweater') { // knit turtleneck with rib lines
+    g.save(); g.beginPath(); torso.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.clip();
+    g.strokeStyle = 'rgba(0,0,0,0.16)'; g.lineWidth = 3; for (let x = cx - 60; x <= cx + 60; x += 14) { g.beginPath(); g.moveTo(x, shY + 20); g.lineTo(x, hipY + 6); g.stroke(); }
+    g.restore();
+    shape(g, [[cx - 34, shY - 14], [cx + 34, shY - 14], [cx + 38, shY + 14], [cx - 38, shY + 14]], P.jacket2, 4, nz, 60);
+  } else {
+    // white collar and tie
+    shape(g, [[cx - 22, shY - 4], [cx, shY + 16], [cx - 6, shY + 26], [cx - 26, shY + 8]], '#fbf6ea', 3.5, nz, 60);
+    shape(g, [[cx + 22, shY - 4], [cx, shY + 16], [cx + 6, shY + 26], [cx + 26, shY + 8]], '#fbf6ea', 3.5, nz, 62);
+    shape(g, [[cx, shY + 16], [cx + 7, shY + 30], [cx + 4, shY + 70], [cx, shY + 80], [cx - 4, shY + 70], [cx - 7, shY + 30]], P.tie, 3, nz, 64);
+  }
   if (pose.hold) { // control box with antenna, held in both hands
     g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.moveTo(cx + 22, shY + 62); g.lineTo(cx + 30, shY + 18); g.stroke();
     shape(g, [[cx - 30, shY + 58], [cx + 30, shY + 58], [cx + 30, shY + 100], [cx - 30, shY + 100]], '#e1ad35', 5, nz, 55);
@@ -75,27 +82,91 @@ export function drawPerson(g, P, pose) {
   const hr = 74;
   const head = circlePts(cx, headY, hr, hr * 0.96, 44, 0.04, nz, 70);
   shape(g, head, P.skin, lw, nz, 71);
-  // hair fringe
-  if (P.hair) {
+  drawFace(g, P, pose, cx, headY, hr, nz, lw);
+  // hats
+  if (P.hat === 'cap') { shape(g, [[cx - 66, headY - 34], [cx - 58, headY - 70], [cx, headY - 84], [cx + 58, headY - 70], [cx + 66, headY - 34]], P.hatColor, lw, nz, 90); shape(g, [[cx + 20, headY - 38], [cx + 96, headY - 30], [cx + 92, headY - 22], [cx + 20, headY - 26]], P.hatColor, lw * 0.8, nz, 92); }
+  if (P.hat === 'peaked') {
+    shape(g, [[cx - 80, headY - 120], [cx + 80, headY - 120], [cx + 60, headY - 78], [cx - 60, headY - 78]], P.hatColor, lw, nz, 88);
+    shape(g, [[cx - 62, headY - 82], [cx + 62, headY - 82], [cx + 64, headY - 64], [cx - 64, headY - 64]], P.hatColor2 || INK, lw * 0.8, nz, 89);
+    shape(g, [[cx - 62, headY - 66], [cx + 62, headY - 66], [cx + 44, headY - 50], [cx - 44, headY - 50]], INK, 2, nz, 90);
+    shape(g, circlePts(cx, headY - 100, 12, 11, 14, 0.1, nz, 91), P.badge || '#e1ad35', 3.5, nz, 92);
+  }
+  if (P.hat === 'bowler') { shape(g, circlePts(cx, headY - 62, 52, 34, 30, 0.04, nz, 94).filter((p) => p[1] < headY - 52).concat([[cx + 52, headY - 52], [cx - 52, headY - 52]]), P.hatColor, lw, nz, 95); shape(g, [[cx - 78, headY - 56], [cx + 78, headY - 56], [cx + 74, headY - 44], [cx - 74, headY - 44]], P.hatColor, lw * 0.8, nz, 96); }
+  if (P.hat === 'beanie') { shape(g, circlePts(cx, headY - 40, 70, 46, 30, 0.05, nz, 97).filter((p) => p[1] < headY - 30).concat([[cx + 70, headY - 30], [cx - 70, headY - 30]]), P.hatColor, lw, nz, 98); shape(g, [[cx - 72, headY - 40], [cx + 72, headY - 40], [cx + 72, headY - 22], [cx - 72, headY - 22]], P.hatColor2 || P.hatColor, lw * 0.8, nz, 99); }
+}
+
+// ---------- faces: the acting happens here ----------
+// expr: calm | neutral | alarmed | shout | scared | grin | smug | sad | angry
+function drawFace(g, P, pose, cx, headY, hr, nz, lw) {
+  const ex = pose.expr || P.expr || 'neutral';
+  const talk = pose.talk || 0;
+  const old = !!P.old;
+  // hair: young = fringe; old = bald dome with fluffy side tufts
+  if (P.hair && !old) {
     const fr = [];
     for (let i = 0; i <= 22; i++) { const a = Math.PI + (i / 22) * Math.PI; fr.push([cx + Math.cos(a) * (hr + 3), headY + Math.sin(a) * (hr + 3) * 0.97]); }
     for (let i = 8; i >= 0; i--) { const x = cx - hr + (i / 8) * hr * 2; const y = headY - hr * 0.42 + (i % 2 ? 10 : -2); fr.push([x, y]); }
     shape(g, fr, P.hair, lw * 0.85, nz, 80);
   }
-  // calm half-lidded eyes, tiny smile, cheeks
-  for (const s of [-1, 1]) {
-    const ex = cx + s * 27, ey = headY + 6;
-    g.fillStyle = INK; g.beginPath(); g.ellipse(ex, ey + 2, 8, 7, 0, 0, Math.PI); g.fill();
-    g.lineWidth = 4; g.strokeStyle = INK; g.beginPath(); g.moveTo(ex - 11, ey + 1); g.lineTo(ex + 11, ey + 1); g.stroke();
-    g.fillStyle = 'rgba(220,120,110,0.35)'; g.beginPath(); g.ellipse(cx + s * 44, headY + 28, 11, 7, 0, 0, Math.PI * 2); g.fill();
+  if (old) {
+    for (const s of [-1, 1]) { // tufts over the ears
+      shape(g, circlePts(cx + s * (hr - 2), headY - 8, 22, 30, 22, 0.35, nz, 81 + s), P.hair || '#e8e4dc', lw * 0.8, nz, 82 + s);
+    }
+    g.strokeStyle = 'rgba(53,31,34,0.55)'; g.lineWidth = 3; g.lineCap = 'round';
+    for (let i = 0; i < 2; i++) { g.beginPath(); g.arc(cx, headY + 6 - i * 9, 40, 1.36 * Math.PI, 1.64 * Math.PI); g.stroke(); } // forehead lines
+    for (const s of [-1, 1]) { g.beginPath(); g.moveTo(cx + s * 44, headY + 2); g.lineTo(cx + s * 52, headY - 2); g.moveTo(cx + s * 44, headY + 8); g.lineTo(cx + s * 53, headY + 9); g.stroke(); } // crow's feet
   }
-  if (pose.talk > 0.05) { g.fillStyle = INK; g.beginPath(); g.ellipse(cx, headY + 30, 9, 3 + 9 * pose.talk, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = '#c9605a'; g.beginPath(); g.ellipse(cx, headY + 33 + 3 * pose.talk, 5, 2 + 4 * pose.talk, 0, 0, Math.PI * 2); g.fill(); }
-  else { g.lineWidth = 4; g.beginPath(); g.arc(cx, headY + 26, 9, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke(); }
-  if (P.glasses) { g.lineWidth = 3.5; for (const s of [-1, 1]) { g.beginPath(); g.arc(cx + s * 27, headY + 6, 15, 0, Math.PI * 2); g.stroke(); } g.beginPath(); g.moveTo(cx - 12, headY + 4); g.lineTo(cx + 12, headY + 4); g.stroke(); }
-  // hats
-  if (P.hat === 'cap') { shape(g, [[cx - 66, headY - 34], [cx - 58, headY - 70], [cx, headY - 84], [cx + 58, headY - 70], [cx + 66, headY - 34]], P.hatColor, lw, nz, 90); shape(g, [[cx + 20, headY - 38], [cx + 96, headY - 30], [cx + 92, headY - 22], [cx + 20, headY - 26]], P.hatColor, lw * 0.8, nz, 92); }
-  if (P.hat === 'bowler') { shape(g, circlePts(cx, headY - 62, 52, 34, 30, 0.04, nz, 94).filter((p) => p[1] < headY - 52).concat([[cx + 52, headY - 52], [cx - 52, headY - 52]]), P.hatColor, lw, nz, 95); shape(g, [[cx - 78, headY - 56], [cx + 78, headY - 56], [cx + 74, headY - 44], [cx - 74, headY - 44]], P.hatColor, lw * 0.8, nz, 96); }
-  if (P.hat === 'beanie') { shape(g, circlePts(cx, headY - 40, 70, 46, 30, 0.05, nz, 97).filter((p) => p[1] < headY - 30).concat([[cx + 70, headY - 30], [cx - 70, headY - 30]]), P.hatColor, lw, nz, 98); shape(g, [[cx - 72, headY - 40], [cx + 72, headY - 40], [cx + 72, headY - 22], [cx - 72, headY - 22]], P.hatColor2 || P.hatColor, lw * 0.8, nz, 99); }
+  const browCol = old ? (P.brows || '#efebe4') : INK, browW = old ? 11 : 5.5;
+  const brow = (s, inner, outer, lift = 0) => { // inner/outer: y offsets (negative = up)
+    const y0 = headY - 16 - lift;
+    if (old) { g.strokeStyle = INK; g.lineWidth = browW + 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx + s * 12, y0 + inner); g.lineTo(cx + s * 42, y0 + outer); g.stroke(); }
+    g.strokeStyle = browCol; g.lineWidth = browW; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx + s * 12, y0 + inner); g.lineTo(cx + s * 42, y0 + outer); g.stroke();
+  };
+  const dotEye = (s, r = 7, dy = 0) => { g.fillStyle = INK; g.beginPath(); g.arc(cx + s * 27, headY + 6 + dy, r, 0, Math.PI * 2); g.fill(); };
+  const wideEye = (s, r = 14, look = [0, 0]) => {
+    g.fillStyle = '#fffdf6'; g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.arc(cx + s * 27, headY + 4, r, 0, Math.PI * 2); g.fill(); g.stroke();
+    g.fillStyle = INK; g.beginPath(); g.arc(cx + s * 27 + look[0], headY + 4 + look[1], r * 0.36, 0, Math.PI * 2); g.fill();
+  };
+  const arcEye = (s, up = true) => { g.strokeStyle = INK; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); if (up) g.arc(cx + s * 27, headY + 10, 10, 1.15 * Math.PI, 1.85 * Math.PI); else g.arc(cx + s * 27, headY + 2, 10, 0.15 * Math.PI, 0.85 * Math.PI); g.stroke(); };
+  const lidEye = (s) => { g.fillStyle = INK; g.beginPath(); g.ellipse(cx + s * 27, headY + 8, 8, 7, 0, 0, Math.PI); g.fill(); g.lineWidth = 4; g.strokeStyle = INK; g.beginPath(); g.moveTo(cx + s * 27 - 11, headY + 7); g.lineTo(cx + s * 27 + 11, headY + 7); g.stroke(); };
+  // eyes + brows
+  for (const s of [-1, 1]) {
+    if (ex === 'calm') { lidEye(s); brow(s, 0, 2); }
+    else if (ex === 'neutral') { dotEye(s); brow(s, 0, 0); }
+    else if (ex === 'alarmed') { wideEye(s, 14); brow(s, -10, -4, 6); }
+    else if (ex === 'shout' || ex === 'angry') { wideEye(s, 12, [-s * 2, 1]); brow(s, 10, -8, -2); }
+    else if (ex === 'scared') { wideEye(s, 15, [0, 2]); brow(s, -14, 2, 4); }
+    else if (ex === 'grin') { arcEye(s, true); brow(s, -4, -6, 4); }
+    else if (ex === 'smug') { lidEye(s); brow(s, s > 0 ? -10 : 2, s > 0 ? -14 : 0); }
+    else if (ex === 'sad') { dotEye(s, 6, 2); brow(s, -10, 6); }
+    if (!old) { g.fillStyle = 'rgba(220,120,110,0.35)'; g.beginPath(); g.ellipse(cx + s * 44, headY + 28, 11, 7, 0, 0, Math.PI * 2); g.fill(); }
+  }
+  if (ex === 'scared') { shape(g, [[cx + 62, headY - 30], [cx + 70, headY - 12], [cx + 62, headY - 4], [cx + 54, headY - 12]], '#9fd3f0', 3, nz, 120); }
+  if (P.glasses) { g.strokeStyle = INK; g.lineWidth = 3.5; for (const s of [-1, 1]) { g.beginPath(); g.arc(cx + s * 27, headY + 6, 17, 0, Math.PI * 2); g.stroke(); } g.beginPath(); g.moveTo(cx - 10, headY + 4); g.lineTo(cx + 10, headY + 4); g.stroke(); }
+  // beard behind the mouth (old men)
+  const my = headY + (P.beard ? 40 : 30);
+  if (P.beard) shape(g, circlePts(cx, headY + 46, 56, 44, 30, 0.22, nz, 130).filter((p) => p[1] > headY + 18).concat([[cx + 54, headY + 18], [cx - 54, headY + 18]]), P.beard, lw * 0.8, nz, 131);
+  // mouth: shape from the expression, opened by talk
+  const open = ex === 'shout' ? 0.55 + 0.45 * talk : talk;
+  g.lineCap = 'round';
+  if (open > 0.05) {
+    const w = ex === 'shout' ? 22 : ex === 'grin' ? 18 : 11, h = (ex === 'shout' ? 10 : 4) + 16 * open;
+    g.fillStyle = INK; g.beginPath(); g.ellipse(cx, my, w, h, 0, 0, Math.PI * 2); g.fill();
+    if (ex === 'shout' || ex === 'grin') { g.fillStyle = '#fffdf6'; g.fillRect(cx - w * 0.75, my - h + 3, w * 1.5, Math.min(7, h * 0.35)); }
+    g.fillStyle = '#c9605a'; g.beginPath(); g.ellipse(cx, my + h * 0.45, w * 0.55, h * 0.4, 0, 0, Math.PI * 2); g.fill();
+  } else {
+    g.strokeStyle = INK; g.lineWidth = 4.5; g.beginPath();
+    if (ex === 'grin') { g.fillStyle = INK; g.ellipse(cx, my - 2, 22, 12, 0, 0, Math.PI); g.fill(); g.fillStyle = '#fffdf6'; g.fillRect(cx - 18, my - 2, 36, 6); }
+    else if (ex === 'sad' || ex === 'scared' || ex === 'angry') g.arc(cx, my + 12, 11, 1.2 * Math.PI, 1.8 * Math.PI);
+    else if (ex === 'smug') { g.moveTo(cx - 10, my); g.quadraticCurveTo(cx + 4, my + 6, cx + 14, my - 4); }
+    else if (ex === 'alarmed') g.arc(cx, my, 6, 0, Math.PI * 2);
+    else g.arc(cx, my - 4, 9, 0.2 * Math.PI, 0.8 * Math.PI);
+    g.stroke();
+  }
+  // walrus moustache on top of the mouth
+  if (P.moustache) {
+    for (const s of [-1, 1]) shape(g, [[cx, my - 16], [cx + s * 20, my - 22], [cx + s * 40, my - 12], [cx + s * 44, my + 2], [cx + s * 30, my - 2], [cx + s * 14, my - 6], [cx, my - 8]], P.moustache, lw * 0.75, nz, 140 + s);
+  }
 }
 
 export function makePerson(P) {
@@ -122,6 +193,7 @@ export function makePerson(P) {
         ? { leg: 0.32 * Math.sin(ph), arm: 0.28 * Math.sin(ph), bob: Math.abs(Math.sin(ph)) * 7 }
         : { leg: 0, arm: 0.06 * Math.sin(ph), bob: 2 + 2 * Math.sin(ph), nod: 2 * Math.sin(ph * 0.5) };
       if (opts.hold) pose.hold = true;
+      if (opts.expr) pose.expr = opts.expr;
       if (opts.talk) pose.talk = Math.max(0, Math.sin(t * 23) * 0.6 + Math.sin(t * 9.7) * 0.4) * opts.talk;
       drawPerson(g, person, pose); tex.needsUpdate = true;
       // turn toward the camera with limited yaw so they are never edge-on

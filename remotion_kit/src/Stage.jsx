@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { useThree, useFrame } from '@react-three/fiber';
 import { useCurrentFrame, useVideoConfig } from 'remotion';
 import { ThreeCanvas } from '@remotion/three';
-import { EffectComposer, RenderPass, EffectPass, DepthOfFieldEffect, VignetteEffect } from 'postprocessing';
+import { EffectComposer, RenderPass, EffectPass, DepthOfFieldEffect, VignetteEffect, BloomEffect, HueSaturationEffect, BrightnessContrastEffect } from 'postprocessing';
 
 export function addLights(scene, { center = [0, 0, 0], key = [-38, 46, 34], keyColor = '#fff0d4', keyI = 2.4, hemiI = 1.15, size = 32, fog = ['#e6dfcb', 48, 360], hemi = ['#d6e4ef', '#8c8a5c'] } = {}) {
   scene.add(new THREE.HemisphereLight(hemi[0], hemi[1], hemiI));
@@ -19,7 +19,8 @@ export function addLights(scene, { center = [0, 0, 0], key = [-38, 46, 34], keyC
   return k;
 }
 
-const Inner = ({ build, cam, t0, focusRange = 7, bokeh = 3.2 }) => {
+// bloom: glow around lamps, beams and bright windows (0 = off). grade: { sat, contrast } colour grade.
+const Inner = ({ build, cam, t0, focusRange = 7, bokeh = 3.2, bloom = 0.9, bloomThreshold = 0.62, grade = { sat: 0.12, contrast: 0.06 } }) => {
   const frame = useCurrentFrame(); const { fps } = useVideoConfig();
   const fr = useRef(frame); fr.current = frame;
   const { gl, scene, camera, size } = useThree();
@@ -29,7 +30,12 @@ const Inner = ({ build, cam, t0, focusRange = 7, bokeh = 3.2 }) => {
     composer.addPass(new RenderPass(scene, camera));
     const dof = new DepthOfFieldEffect(camera, { focusDistance: 10, focusRange, bokehScale: bokeh, resolutionScale: 0.5 });
     dof.target = new THREE.Vector3();
-    composer.addPass(new EffectPass(camera, dof, new VignetteEffect({ offset: 0.32, darkness: 0.38 })));
+    composer.addPass(new EffectPass(camera, dof));
+    const fx2 = [];
+    if (bloom > 0) fx2.push(new BloomEffect({ intensity: bloom, luminanceThreshold: bloomThreshold, luminanceSmoothing: 0.22, mipmapBlur: true, radius: 0.7 }));
+    if (grade) fx2.push(new HueSaturationEffect({ saturation: grade.sat || 0 }), new BrightnessContrastEffect({ contrast: grade.contrast || 0 }));
+    fx2.push(new VignetteEffect({ offset: 0.32, darkness: 0.38 }));
+    composer.addPass(new EffectPass(camera, ...fx2));
     return { composer, dof };
   }, [gl, scene, camera]);
   useEffect(() => { fx.composer.setSize(size.width, size.height); }, [fx, size]);
