@@ -26,7 +26,7 @@ export function buildDeck(scene) {
   const lg = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 8), glow('#ffcf7a')); lg.position.set(-1.1, 2.5, -0.6); deck.add(lg);
   const ll = new THREE.PointLight('#ffb866', 14, 10, 1.3); ll.position.copy(lg.position); deck.add(ll);
   const R = rain(900, 8, 10, 18); root.add(R.lines);
-  const cap = makePerson(CAPTAIN); cap.group.position.set(0, 0, 0.4); root.add(cap.group);
+  const cap = makePerson(CAPTAIN, { tint: '#d2dcef' }); cap.group.position.set(0, 0, 0.4); root.add(cap.group);
   return {
     root,
     update(t, camera) {
@@ -35,7 +35,7 @@ export function buildDeck(scene) {
       cap.group.rotation.z = deck.rotation.z;
       ll.intensity = 14 * (0.85 + 0.15 * Math.sin(t * 11));
       R.update(t, camera.position);
-      cap.update(t, camera.position, 0, { hold: true, talk: talking(t, 'CAPTAIN') ? 1 : 0, expr: 'shout' });
+      cap.update(t, camera.position, 0, { talk: talking(t, 'CAPTAIN') ? 1 : 0, expr: 'shout', gesture: [[-1e9, 'mouth', { prop: 'radio' }], [w(5, "can't") - 0.05, 'mouth', { prop: 'radio' }]] });
     },
   };
 }

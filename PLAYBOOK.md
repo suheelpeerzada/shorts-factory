@@ -272,3 +272,14 @@ Storytelling: open on the strangest fact stated flat (no "imagine"), characters'
 Laptop hand-off gotchas: device_commit_files can deliver a STALE copy when the same staged filename is reused - give
 every hand-off file a new name (e.g. _v2, a timestamp). Deleting is off in the owner's folders, so tar can't replace
 files: extract to /tmp on the device, then `cat src > dest` over each file.
+
+## Characters v2 + scene detail (owner, 6 Nov)
+Owner: "more detailed, more 3D like the references; characters with hand movements using tools; heads must not
+float; bolder outlines; stickman arms and legs, bold and smooth". char.js v2: head sits on the body, bold smooth
+stick limbs (2-bone IK), round hands, gesture timeline: opts.gesture = [[t, name, {prop, hand, angle, at}], ...]
+names: idle talk talk2 point pointL fists scared hips shrug wave hold holdR lantern lift mouth facepalm reach grip.
+Props drawn in hand: lantern radio mug key book spyglass. 'grip' + localToCanvas() puts both hands on a 3D handle.
+makePerson(P, {tint}) tints a character to the scene light; characters cast real shadows.
+Every scene needs layers: foreground props, a detailed midground set (shelves, tools, clutter, practical lights),
+and a background (glitter path, coastline, clouds, fog banks). See examples/lighthouse_v2/src/worlds/common.js.
+Test clips: src/clip.js CLIP = [start, end] renders just that window (slice voiceover.wav to match).

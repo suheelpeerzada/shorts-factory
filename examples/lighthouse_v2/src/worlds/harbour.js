@@ -34,7 +34,7 @@ export function buildHarbour(scene) {
       const noT = w(10, '^No$'); entry.scale.setScalar(pop(ramp(t, noT - 0.05, noT + 0.3)));
       [s1, s2].forEach((s, i) => { s.position.y = -0.6 + Math.sin(t * 1.2 + i) * 0.08; });
       let ex = 'neutral'; if (t > noT) ex = 'alarmed'; if (t > w(10, '^Not') - 0.05) ex = 'scared';
-      you.update(t, camera.position, 0, { expr: ex });
+      you.update(t, camera.position, 0, { expr: ex, gesture: [[-1e9, 'idle'], [w(10, 'check') - 0.05, 'pointL', { angle: -0.35 }], [w(10, '^Not') - 0.05, 'scared']] });
     },
   };
 }

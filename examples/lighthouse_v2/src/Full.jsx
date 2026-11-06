@@ -7,6 +7,8 @@ import { makeRoom, camRoom1, camRoom2, camRoom3, camRoom4 } from './worlds/room.
 import { buildDeck, camDeck } from './worlds/deck.js';
 import { buildHarbour, camHarbour } from './worlds/harbour.js';
 import { LOCS, INNER_CUTS, WORDS, SPEAKER_COLORS, TITLE, DURATION } from './times.js';
+import { CLIP } from './clip.js';
+export const C0 = CLIP ? CLIP[0] : 0, C1 = CLIP ? CLIP[1] : DURATION;
 
 const FPS = 30;
 const f = (s) => Math.round(s * FPS);
@@ -28,7 +30,7 @@ const SCENES = {
 
 // quick dips to black on every cut; a longer cream dip for "next morning"
 const Dip = () => {
-  const t = useCurrentFrame() / FPS;
+  const t = C0 + useCurrentFrame() / FPS;
   let o = 0, col = '#05070d';
   for (const c of [...LOCS.slice(1).map((l) => l[0]), ...INNER_CUTS]) {
     const long = c === 35.3, hw = long ? 0.3 : 0.09;
@@ -40,16 +42,16 @@ const Dip = () => {
 
 export const Full = () => (
   <AbsoluteFill style={{ backgroundColor: '#05070d' }}>
-    {LOCS.map(([a, b, id]) => {
-      const S = SCENES[id];
+    {LOCS.filter(([a, b]) => b > C0 && a < C1).map(([a, b, id]) => {
+      const S = SCENES[id]; const a2 = Math.max(a, C0), b2 = Math.min(b, C1);
       return (
-        <Sequence key={id} from={f(a)} durationInFrames={f(b) - f(a)} layout="none">
-          <AbsoluteFill><Stage build={S.build} cam={S.cam} t0={f(a) / FPS} focusRange={S.focusRange} bokeh={2.6} bloom={S.bloom} bloomThreshold={S.bloomThreshold} grade={S.grade} /></AbsoluteFill>
+        <Sequence key={id} from={f(a2) - f(C0)} durationInFrames={f(b2) - f(a2)} layout="none">
+          <AbsoluteFill><Stage build={S.build} cam={S.cam} t0={f(a2) / FPS} focusRange={S.focusRange} bokeh={2.6} bloom={S.bloom} bloomThreshold={S.bloomThreshold} grade={S.grade} /></AbsoluteFill>
         </Sequence>
       );
     })}
     <Dip />
-    <TitleCard TITLE={TITLE} />
-    <Captions WORDS={WORDS} SPEAKER_COLORS={SPEAKER_COLORS} after={TITLE.until} />
+    {C0 < TITLE.until ? <TitleCard TITLE={TITLE} /> : null}
+    <Captions WORDS={WORDS.filter((q) => q.e > C0 && q.s < C1).map((q) => ({ ...q, s: Math.max(0, q.s - C0), e: q.e - C0 }))} SPEAKER_COLORS={SPEAKER_COLORS} after={Math.max(0, TITLE.until - C0)} />
   </AbsoluteFill>
 );

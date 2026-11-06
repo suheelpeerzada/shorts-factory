@@ -1,88 +1,164 @@
-// 2D flat people standing in the 3D world. One base design; variants only by palette, hat and glasses.
+// 2D characters standing in the 3D world (Ricks-Clips-like): big round head sitting ON the body, bold smooth
+// stick arms and legs, small round hands that point, grab and hold props. One base design; variants by palette,
+// hats, glasses, beard. Poses come from a gesture timeline so every frame is deterministic.
 import * as THREE from 'three';
 import { INK, rng } from './toon.js';
 
-const CW = 256, CH = 512, RES = 2;   // logical canvas size; drawn at RES x for 1080p
-const TOP = 52, FOOT = 500;          // head top and foot line in canvas px
+const CW = 320, CH = 560, RES = 3;   // logical canvas size; drawn at RES x so close-ups stay crisp
+const TOP = 70, FOOT = 548;          // head top and foot line in canvas px (room above for hats, at the sides for gestures)
 const PX_H = FOOT - TOP;             // drawn person height in px
+const HR = 74;                       // head radius
+const LW = 8.5;                      // outline weight (bold)
+const LIMB = 10;                     // stick limb weight
+const UA = 60, FA = 58;              // upper arm / forearm length
 
-// smooth deterministic noise for the hand-drawn ink band
 function noise1(seed) { const r = rng(seed); const v = Array.from({ length: 64 }, r); return (x) => { const i = Math.floor(x) & 63, f = x - Math.floor(x), a = v[i], b = v[(i + 1) & 63]; return a + (b - a) * (f * f * (3 - 2 * f)); }; }
-
 function inkPath(g, pts, closed, base, nz, off) {
   const n = pts.length; const m = closed ? n : n - 1;
   g.strokeStyle = INK; g.lineCap = 'round'; g.lineJoin = 'round';
   for (let i = 0; i < m; i++) {
     const a = pts[i], b = pts[(i + 1) % n];
-    g.lineWidth = base * (0.7 + 0.6 * nz(off + i * 0.35));
+    g.lineWidth = base * (0.85 + 0.3 * nz(off + i * 0.35));
     g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
   }
 }
 function fillPts(g, pts, color) { g.fillStyle = color; g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.fill(); }
 function circlePts(cx, cy, rx, ry, n = 36, wob = 0, nz = null, off = 0) { const out = []; for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2; const k = 1 + (nz ? (nz(off + i * 0.4) - 0.5) * wob : 0); out.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k]); } return out; }
 function shape(g, pts, color, lw, nz, off) { fillPts(g, pts, color); inkPath(g, pts, true, lw, nz, off); }
-// tapered limb from (x,y) with angle a (0 = straight down), length L, widths w0 -> w1
-function limbPts(x, y, a, L, w0, w1) {
-  const dx = Math.sin(a), dy = Math.cos(a), nx = dy, ny = -dx;
-  const ex = x + dx * L, ey = y + dy * L;
-  return [[x + nx * w0, y + ny * w0], [ex + nx * w1, ey + ny * w1], [ex - nx * w1, ey - ny * w1], [x - nx * w0, y - ny * w0]];
+function rrect(x0, y0, x1, y1, r, n = 6) { // rounded rectangle points
+  const pts = []; const c = [[x1 - r, y0 + r, -Math.PI / 2], [x1 - r, y1 - r, 0], [x0 + r, y1 - r, Math.PI / 2], [x0 + r, y0 + r, Math.PI]];
+  for (const [x, y, a0] of c) for (let i = 0; i <= n; i++) { const a = a0 + (i / n) * (Math.PI / 2); pts.push([x + Math.cos(a) * r, y + Math.sin(a) * r]); }
+  return pts;
+}
+// smooth stick limb through a joint (quadratic curve whose midpoint passes through the joint)
+function stick(g, a, j, b, w = LIMB, color = INK) {
+  const cx = 2 * j[0] - (a[0] + b[0]) / 2, cy = 2 * j[1] - (a[1] + b[1]) / 2;
+  g.strokeStyle = color; g.lineWidth = w; g.lineCap = 'round'; g.lineJoin = 'round';
+  g.beginPath(); g.moveTo(a[0], a[1]); g.quadraticCurveTo(cx, cy, b[0], b[1]); g.stroke();
+}
+// two-bone IK: shoulder S, hand target H; elbow bends outward (side s)
+function ik(S, H, s, a = UA, b = FA) {
+  let dx = H[0] - S[0], dy = H[1] - S[1]; let d = Math.hypot(dx, dy) || 1;
+  const dm = Math.min(a + b - 0.5, Math.max(8, d)); const k = dm / d; dx *= k; dy *= k; d = dm;
+  const hand = [S[0] + dx, S[1] + dy];
+  const cosA = THREE.MathUtils.clamp((a * a + d * d - b * b) / (2 * a * d), -1, 1), A = Math.acos(cosA);
+  const base = Math.atan2(dy, dx);
+  const e1 = [S[0] + Math.cos(base + A) * a, S[1] + Math.sin(base + A) * a], e2 = [S[0] + Math.cos(base - A) * a, S[1] + Math.sin(base - A) * a];
+  const elbow = s * e1[0] + 0.35 * e1[1] > s * e2[0] + 0.35 * e2[1] ? e1 : e2; // outward and slightly down
+  return { elbow, hand };
+}
+
+// ---------- gestures: hand targets in canvas px, relative to the shoulder (x outward from the body, y down) ----------
+// returns {L:[dx,dy], R:[dx,dy], fistL, fistR, point (R index finger), abs} ; side L = -1 (screen left), R = +1
+const GEST = {
+  idle: (t) => ({ L: [10, 115 + 1.5 * Math.sin(t * 1.7)], R: [10, 115 + 1.5 * Math.sin(t * 1.7 + 1)] }),
+  talk: (t) => ({ L: [16, 108], R: [-6 + 10 * Math.sin(t * 5.2), 58 + 12 * Math.sin(t * 3.1)] }),
+  talk2: (t) => ({ L: [-4 + 8 * Math.sin(t * 4.1 + 2), 62 + 10 * Math.sin(t * 2.7)], R: [-6 + 10 * Math.sin(t * 5.2), 58 + 12 * Math.sin(t * 3.1)] }),
+  point: (t, o) => { const a = o.angle ?? -0.25; return { L: [16, 108], R: [Math.cos(a) * 116, Math.sin(a) * 116], point: true }; },
+  pointL: (t, o) => { const a = o.angle ?? -0.25; return { R: [16, 108], L: [Math.cos(a) * 116, Math.sin(a) * 116], pointL: true }; },
+  fists: (t) => ({ L: [58 + 3 * Math.sin(t * 40), -54], R: [58 + 3 * Math.sin(t * 43 + 1), -58], fistL: true, fistR: true }),
+  scared: (t) => ({ L: [34 + 2 * Math.sin(t * 37), -56], R: [34 + 2 * Math.sin(t * 41 + 1), -56] }),
+  hips: () => ({ L: [8, 98], R: [8, 98], fistL: true, fistR: true }),
+  shrug: () => ({ L: [52, -6], R: [52, -6] }),
+  wave: (t) => ({ L: [16, 108], R: [40 + 18 * Math.sin(t * 9), -70] }),
+  hold: () => ({ L: [-22, 70], R: [-22, 70] }),
+  holdR: (t) => ({ L: [16, 108], R: [-14, 66] }),
+  lantern: (t) => ({ L: [16, 108], R: [30, 92] }),
+  lift: (t) => ({ L: [16, 108], R: [14, -100] }),
+  mouth: () => ({ L: [16, 108], R: [-18, -48] }), // hand at the mouth (radio handset)
+  facepalm: () => ({ L: [16, 108], R: [-28, -70] }),
+  reach: (t, o) => ({ L: [16, 108], R: [o.dx ?? 60, o.dy ?? -20] }),
+  // both hands on one point given in absolute canvas px (o.at = [x, y]); used to grip a lever handle
+  grip: (t, o) => ({ abs: true, L: [o.at[0] - 12, o.at[1]], R: [o.at[0] + 12, o.at[1]], fistL: true, fistR: true }),
+};
+const lerp2 = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+// timeline: [[t, gesture, opts?], ...] (or a plain gesture name). Blends over 0.22 s.
+function resolveGesture(tl, t, S) {
+  if (!tl) tl = 'idle';
+  if (typeof tl === 'string') tl = [[-1e9, tl]];
+  let i = 0; while (i + 1 < tl.length && t >= tl[i + 1][0]) i++;
+  const cur = tl[i], prev = tl[Math.max(0, i - 1)];
+  const toAbs = (gx, side, v) => (gx.abs ? v : [S[side][0] + (side === 'L' ? -1 : 1) * v[0], S[side][1] + v[1]]);
+  const gc = GEST[cur[1]](t, cur[2] || {}), gp = GEST[prev[1]](t, prev[2] || {});
+  const k = i === 0 ? 1 : THREE.MathUtils.smoothstep((t - cur[0]) / 0.22, 0, 1);
+  const out = {};
+  for (const side of ['L', 'R']) out[side] = lerp2(toAbs(gp, side, gp[side]), toAbs(gc, side, gc[side]), k);
+  const pick = (key) => (k > 0.5 ? gc[key] : gp[key]);
+  out.fistL = pick('fistL'); out.fistR = pick('fistR'); out.point = pick('point'); out.pointL = pick('pointL');
+  out.prop = k > 0.5 ? (cur[2] || {}).prop : (prev[2] || {}).prop;
+  out.propHand = (k > 0.5 ? (cur[2] || {}).hand : (prev[2] || {}).hand) || 'R';
+  return out;
+}
+
+// ---------- props drawn in a hand ----------
+function drawProp(g, name, h, nz, t) {
+  const [x, y] = h; g.lineJoin = 'round';
+  if (name === 'lantern') {
+    g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.arc(x, y + 8, 12, Math.PI, 0); g.stroke();
+    shape(g, rrect(x - 17, y + 14, x + 17, y + 20, 3), '#2b2b33', 4, nz, 200);
+    shape(g, rrect(x - 14, y + 20, x + 14, y + 52, 5), '#fff2b0', 4.5, nz, 201);
+    g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(x, y + 38, 6, 9 + Math.sin(t * 13), 0, 0, Math.PI * 2); g.fill();
+    g.strokeStyle = INK; g.lineWidth = 3; for (const dx of [-7, 7]) { g.beginPath(); g.moveTo(x + dx, y + 20); g.lineTo(x + dx, y + 52); g.stroke(); }
+    shape(g, rrect(x - 17, y + 52, x + 17, y + 58, 3), '#2b2b33', 4, nz, 202);
+  } else if (name === 'radio') {
+    g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.moveTo(x + 8, y - 22); g.lineTo(x + 14, y - 62); g.stroke();
+    shape(g, rrect(x - 16, y - 26, x + 16, y + 22, 6), '#3d4a3f', 5, nz, 210);
+    g.fillStyle = '#1d2420'; for (let i = 0; i < 4; i++) g.fillRect(x - 10, y - 16 + i * 7, 20, 3);
+    g.fillStyle = '#ff5a4a'; g.beginPath(); g.arc(x + 9, y + 12, 3.5, 0, Math.PI * 2); g.fill();
+  } else if (name === 'mug') {
+    shape(g, rrect(x - 4, y - 18, x + 22, y + 14, 4), '#e8e0d0', 4.5, nz, 220);
+    g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.arc(x - 4, y - 2, 8, 0.5 * Math.PI, 1.5 * Math.PI); g.stroke();
+  } else if (name === 'key') {
+    g.strokeStyle = INK; g.lineWidth = 7; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 34, y - 26); g.stroke();
+    g.strokeStyle = '#e1ad35'; g.lineWidth = 3.5; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 34, y - 26); g.stroke();
+    shape(g, circlePts(x - 4, y + 4, 10, 10, 16, 0.05, nz, 230), '#e1ad35', 4, nz, 231);
+  } else if (name === 'book') {
+    shape(g, [[x - 30, y - 22], [x + 30, y - 22], [x + 32, y + 18], [x - 32, y + 18]], '#7a2f2a', 5, nz, 240);
+    shape(g, [[x - 24, y - 18], [x + 24, y - 18], [x + 26, y + 12], [x - 26, y + 12]], '#f4ead2', 3, nz, 241);
+    g.strokeStyle = INK; g.lineWidth = 2; for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(x - 18, y - 10 + i * 6); g.lineTo(x + 18, y - 10 + i * 6); g.stroke(); }
+  } else if (name === 'spyglass') {
+    shape(g, [[x - 6, y - 4], [x + 46, y - 22], [x + 50, y - 10], [x - 2, y + 8]], '#c9a25a', 4.5, nz, 250);
+  }
 }
 
 export function drawPerson(g, P, pose) {
-  const nz = P.nz; const lw = 6.5;
+  const nz = P.nz; const lw = LW; const t = pose.t || 0;
   g.setTransform(RES, 0, 0, RES, 0, 0); g.clearRect(0, 0, CW, CH);
   const cx = CW / 2, bob = pose.bob || 0;
-  const hipY = 352 - bob, shY = 228 - bob, headY = 128 - bob + (pose.nod || 0);
-  // legs (behind torso)
-  const legL = FOOT - hipY - 8;
+  const headY = TOP + HR - bob + (pose.nod || 0) + 4;
+  const shY = headY + HR - 4, hipY = shY + 136;       // the head overlaps the top of the body: no neck gap
+  const S = { L: [cx - 34, shY + 10], R: [cx + 34, shY + 10] };
+  // legs: bold smooth sticks with a knee
   for (const s of [-1, 1]) {
-    const a = (s < 0 ? 1 : -1) * (pose.leg || 0);
-    const lp = limbPts(cx + s * 20, hipY - 6, a, legL, 11, 7);
-    shape(g, lp, P.pants, lw, nz, 3 + s);
-    const fx = cx + s * 20 + Math.sin(a) * legL, fy = hipY - 6 + Math.cos(a) * legL;
-    shape(g, circlePts(fx + 10 * (s > 0 ? 1 : -0.2), fy + 2, 17, 9, 20, 0.08, nz, 9 + s), P.shoes, lw * 0.9, nz, 10 + s);
+    const sw = (s < 0 ? 1 : -1) * (pose.leg || 0);
+    const hip = [cx + s * 16, hipY - 4], foot = [cx + s * 18 + Math.sin(sw) * 70, FOOT - 10 - Math.max(0, -Math.cos(sw * 2)) * 0];
+    const knee = [(hip[0] + foot[0]) / 2 + Math.sin(sw) * 10 + s * 3, (hip[1] + foot[1]) / 2];
+    stick(g, hip, knee, foot, LIMB + 1);
+    shape(g, circlePts(foot[0] + s * 9, foot[1] + 3, 15, 8, 18, 0.06, nz, 9 + s), P.shoes || INK, 3, nz, 10 + s);
   }
-  // arms (behind torso on the far side, simple: both behind)
-  for (const s of [-1, 1]) {
-    const a = pose.hold ? -s * 0.62 : s * 0.2 + (s < 0 ? -1 : 1) * (pose.arm || 0);
-    const AL = pose.hold ? 70 : 112;
-    const ap = limbPts(cx + s * 34, shY + 16, a, AL, 10, 6);
-    shape(g, ap, P.jacket, lw, nz, 20 + s);
-    const hx = cx + s * 34 + Math.sin(a) * AL, hy = shY + 16 + Math.cos(a) * AL;
-    shape(g, circlePts(hx, hy, 12, 12, 18, 0.1, nz, 30 + s), INK, 2, nz, 31);
+  // body: rounded coat/sweater, slight taper
+  const bw0 = 38, bw1 = 44;
+  const body = []; const n = 10;
+  for (let i = 0; i <= n; i++) { const k = i / n; body.push([cx + bw0 + (bw1 - bw0) * k, shY - 6 + k * (hipY - shY + 14)]); }
+  for (let i = n; i >= 0; i--) { const k = i / n; body.push([cx - bw0 - (bw1 - bw0) * k, shY - 6 + k * (hipY - shY + 14)]); }
+  const bodyPts = rrect(cx - bw1, shY - 8, cx + bw1, hipY + 10, 16);
+  fillPts(g, bodyPts, P.jacket);
+  g.save(); g.beginPath(); bodyPts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.clip();
+  g.fillStyle = P.jacket2; g.fillRect(cx + 10, shY - 10, 60, hipY - shY + 30);   // shade side: gives the body some volume
+  if (P.outfit === 'sweater') { g.strokeStyle = 'rgba(0,0,0,0.18)'; g.lineWidth = 3; for (let x = cx - 40; x <= cx + 40; x += 11) { g.beginPath(); g.moveTo(x, shY + 14); g.lineTo(x, hipY + 10); g.stroke(); } g.fillStyle = P.jacket2; g.fillRect(cx - 50, hipY - 6, 100, 16); }
+  else if (P.outfit === 'coat') { g.fillStyle = P.jacket2; g.fillRect(cx - 50, hipY - 40, 100, 12); g.fillStyle = '#e1ad35'; for (let i = 0; i < 3; i++) { g.beginPath(); g.arc(cx, shY + 30 + i * 34, 5, 0, Math.PI * 2); g.fill(); } }
+  else if (P.outfit === 'raincoat') { g.strokeStyle = 'rgba(0,0,0,0.25)'; g.lineWidth = 3; g.beginPath(); g.moveTo(cx, shY + 6); g.lineTo(cx, hipY + 10); g.stroke(); g.fillStyle = INK; for (let i = 0; i < 4; i++) g.fillRect(cx - 12, shY + 26 + i * 30, 10, 4); }
+  else { // suit: collar + tie
+    shape(g, [[cx - 22, shY - 6], [cx, shY + 14], [cx - 6, shY + 24], [cx - 26, shY + 6]], '#fbf6ea', 3.5, nz, 60);
+    shape(g, [[cx + 22, shY - 6], [cx, shY + 14], [cx + 6, shY + 24], [cx + 26, shY + 6]], '#fbf6ea', 3.5, nz, 62);
+    shape(g, [[cx, shY + 14], [cx + 7, shY + 28], [cx + 4, shY + 70], [cx, shY + 80], [cx - 4, shY + 70], [cx - 7, shY + 28]], P.tie || '#c9452f', 3, nz, 64);
   }
-  // pear torso, two-tone
-  const torso = [];
-  for (let i = 0; i <= 20; i++) { const t = i / 20; const y = shY + t * (hipY - shY + 6); const wv = 34 + 26 * Math.sin(Math.min(1, t * 1.15) * Math.PI * 0.62); torso.push([cx + wv, y]); }
-  for (let i = 20; i >= 0; i--) { const t = i / 20; const y = shY + t * (hipY - shY + 6); const wv = 34 + 26 * Math.sin(Math.min(1, t * 1.15) * Math.PI * 0.62); torso.push([cx - wv, y]); }
-  fillPts(g, torso, P.jacket);
-  g.save(); g.beginPath(); torso.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.clip();
-  g.fillStyle = P.jacket2; g.fillRect(0, hipY - 34, CW, 60);       // lower tone
-  shape(g, [[cx - 40, hipY - 72], [cx - 14, hipY - 72], [cx - 14, hipY - 48], [cx - 40, hipY - 48]], P.jacket2, 3, nz, 40); // pocket patch
   g.restore();
-  inkPath(g, torso, true, lw, nz, 50);
-  if (P.outfit === 'sweater') { // knit turtleneck with rib lines
-    g.save(); g.beginPath(); torso.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.clip();
-    g.strokeStyle = 'rgba(0,0,0,0.16)'; g.lineWidth = 3; for (let x = cx - 60; x <= cx + 60; x += 14) { g.beginPath(); g.moveTo(x, shY + 20); g.lineTo(x, hipY + 6); g.stroke(); }
-    g.restore();
-    shape(g, [[cx - 34, shY - 14], [cx + 34, shY - 14], [cx + 38, shY + 14], [cx - 38, shY + 14]], P.jacket2, 4, nz, 60);
-  } else {
-    // white collar and tie
-    shape(g, [[cx - 22, shY - 4], [cx, shY + 16], [cx - 6, shY + 26], [cx - 26, shY + 8]], '#fbf6ea', 3.5, nz, 60);
-    shape(g, [[cx + 22, shY - 4], [cx, shY + 16], [cx + 6, shY + 26], [cx + 26, shY + 8]], '#fbf6ea', 3.5, nz, 62);
-    shape(g, [[cx, shY + 16], [cx + 7, shY + 30], [cx + 4, shY + 70], [cx, shY + 80], [cx - 4, shY + 70], [cx - 7, shY + 30]], P.tie, 3, nz, 64);
-  }
-  if (pose.hold) { // control box with antenna, held in both hands
-    g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.moveTo(cx + 22, shY + 62); g.lineTo(cx + 30, shY + 18); g.stroke();
-    shape(g, [[cx - 30, shY + 58], [cx + 30, shY + 58], [cx + 30, shY + 100], [cx - 30, shY + 100]], '#e1ad35', 5, nz, 55);
-    g.fillStyle = INK; g.fillRect(cx - 20, shY + 68, 16, 10); g.fillStyle = '#c9452f'; g.beginPath(); g.arc(cx + 14, shY + 80, 7, 0, Math.PI * 2); g.fill();
-    for (const s2 of [-1, 1]) shape(g, circlePts(cx + s2 * 32, shY + 82, 12, 12, 18, 0.1, nz, 56 + s2), INK, 2, nz, 57);
-  }
-  // large round pale head
-  const hr = 74;
-  const head = circlePts(cx, headY, hr, hr * 0.96, 44, 0.04, nz, 70);
+  inkPath(g, bodyPts, true, lw, nz, 50);
+  // head (drawn over the top of the body, so it sits on it)
+  const head = circlePts(cx, headY, HR, HR * 0.96, 48, 0.035, nz, 70);
   shape(g, head, P.skin, lw, nz, 71);
-  drawFace(g, P, pose, cx, headY, hr, nz, lw);
+  drawFace(g, P, pose, cx, headY, HR, nz, lw);
   // hats
   if (P.hat === 'cap') { shape(g, [[cx - 66, headY - 34], [cx - 58, headY - 70], [cx, headY - 84], [cx + 58, headY - 70], [cx + 66, headY - 34]], P.hatColor, lw, nz, 90); shape(g, [[cx + 20, headY - 38], [cx + 96, headY - 30], [cx + 92, headY - 22], [cx + 20, headY - 26]], P.hatColor, lw * 0.8, nz, 92); }
   if (P.hat === 'peaked') {
@@ -93,6 +169,27 @@ export function drawPerson(g, P, pose) {
   }
   if (P.hat === 'bowler') { shape(g, circlePts(cx, headY - 62, 52, 34, 30, 0.04, nz, 94).filter((p) => p[1] < headY - 52).concat([[cx + 52, headY - 52], [cx - 52, headY - 52]]), P.hatColor, lw, nz, 95); shape(g, [[cx - 78, headY - 56], [cx + 78, headY - 56], [cx + 74, headY - 44], [cx - 74, headY - 44]], P.hatColor, lw * 0.8, nz, 96); }
   if (P.hat === 'beanie') { shape(g, circlePts(cx, headY - 40, 70, 46, 30, 0.05, nz, 97).filter((p) => p[1] < headY - 30).concat([[cx + 70, headY - 30], [cx - 70, headY - 30]]), P.hatColor, lw, nz, 98); shape(g, [[cx - 72, headY - 40], [cx + 72, headY - 40], [cx + 72, headY - 22], [cx - 72, headY - 22]], P.hatColor2 || P.hatColor, lw * 0.8, nz, 99); }
+
+  // arms last: they can cross in front of the body and face
+  const G = pose.G || resolveGesture('idle', t, S);
+  const hands = {};
+  for (const side of ['L', 'R']) {
+    const s = side === 'L' ? -1 : 1;
+    const { elbow, hand } = ik(S[side], G[side], s);
+    stick(g, S[side], elbow, hand, LIMB);
+    hands[side] = hand;
+  }
+  if (G.prop) drawProp(g, G.prop, hands[G.propHand], nz, t);
+  for (const side of ['L', 'R']) {
+    const h = hands[side], fist = side === 'L' ? G.fistL : G.fistR;
+    if ((side === 'R' && G.point) || (side === 'L' && G.pointL)) { // pointing finger along the forearm direction
+      const S0 = S[side], d = Math.hypot(h[0] - S0[0], h[1] - S0[1]) || 1, ux = (h[0] - S0[0]) / d, uy = (h[1] - S0[1]) / d;
+      stick(g, h, [h[0] + ux * 9, h[1] + uy * 9], [h[0] + ux * 20, h[1] + uy * 20], 7);
+    }
+    shape(g, circlePts(h[0], h[1], fist ? 12 : 11, fist ? 11 : 11, 18, 0.08, nz, 30 + (side === 'L' ? 0 : 1)), P.skin, 4.5, nz, 31);
+    if (fist) { g.strokeStyle = INK; g.lineWidth = 2.5; g.beginPath(); g.moveTo(h[0] - 5, h[1] - 2); g.lineTo(h[0] + 5, h[1] - 2); g.stroke(); }
+  }
+  return { hands };
 }
 
 // ---------- faces: the acting happens here ----------
@@ -169,36 +266,51 @@ function drawFace(g, P, pose, cx, headY, hr, nz, lw) {
   }
 }
 
-export function makePerson(P) {
+
+// canvas px -> world offset on the character plane (x right, y up), for attaching 3D things to a hand
+export function canvasToLocal(P, px, py) { const H = P.height || 1.72; const k = H / PX_H; return [(px - CW / 2) * k, (FOOT - py) * k]; }
+export function localToCanvas(P, x, y) { const H = P.height || 1.72; const k = H / PX_H; return [CW / 2 + x / k, FOOT - y / k]; }
+
+export function makePerson(P, { tint = '#ffffff' } = {}) {
   const c = document.createElement('canvas'); c.width = CW * RES; c.height = CH * RES;
   const g = c.getContext('2d');
-  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
   const H = P.height || 1.72; const planeH = H * (CH / PX_H), planeW = planeH * (CW / CH);
-  const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.45, side: THREE.DoubleSide, fog: true });
+  const mat = new THREE.MeshBasicMaterial({ map: tex, color: tint, transparent: true, alphaTest: 0.45, side: THREE.DoubleSide, fog: true });
   const geo = new THREE.PlaneGeometry(planeW, planeH); geo.translate(0, planeH / 2 - planeH * ((CH - FOOT) / CH), 0);
   const mesh = new THREE.Mesh(geo, mat);
+  // real cast shadows that follow the drawn silhouette
+  mesh.castShadow = true;
+  mesh.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: tex, alphaTest: 0.45 });
+  mesh.customDistanceMaterial = new THREE.MeshDistanceMaterial({ map: tex, alphaTest: 0.45 });
   const group = new THREE.Group(); group.add(mesh);
-  // soft contact shadow blob
   const sc = document.createElement('canvas'); sc.width = sc.height = 64; const sg = sc.getContext('2d');
-  const gr = sg.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(53,31,34,0.45)'); gr.addColorStop(1, 'rgba(53,31,34,0)'); sg.fillStyle = gr; sg.fillRect(0, 0, 64, 64);
-  const blob = new THREE.Mesh(new THREE.PlaneGeometry(H * 0.62, H * 0.3), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
-  blob.rotation.x = -Math.PI / 2; blob.position.y = 0.03; group.add(blob);
+  const gr = sg.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(20,12,16,0.5)'); gr.addColorStop(1, 'rgba(20,12,16,0)'); sg.fillStyle = gr; sg.fillRect(0, 0, 64, 64);
+  const blob = new THREE.Mesh(new THREE.PlaneGeometry(H * 0.5, H * 0.24), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
+  blob.rotation.x = -Math.PI / 2; blob.position.y = 0.02; group.add(blob);
   const person = { ...P, nz: noise1(P.seed || 1) };
   return {
-    group,
-    // t in seconds; walking = stride rate in Hz (0 = idle); cam = camera position
+    group, mesh, material: mat,
+    // t seconds; walking = stride Hz (0 = idle); opts: { talk, expr, gesture (name or [[t, name, {prop, hand, angle, at}]...]), hold }
     update(t, cam, walking = 0, opts = {}) {
       const ph = t * Math.PI * 2 * (walking || 0.5) + (P.phase || 0);
       const pose = walking
-        ? { leg: 0.32 * Math.sin(ph), arm: 0.28 * Math.sin(ph), bob: Math.abs(Math.sin(ph)) * 7 }
-        : { leg: 0, arm: 0.06 * Math.sin(ph), bob: 2 + 2 * Math.sin(ph), nod: 2 * Math.sin(ph * 0.5) };
-      if (opts.hold) pose.hold = true;
+        ? { leg: 0.3 * Math.sin(ph), bob: Math.abs(Math.sin(ph)) * 6 }
+        : { leg: 0, bob: 1.5 + 1.5 * Math.sin(ph), nod: 2 * Math.sin(ph * 0.5) };
+      pose.t = t;
       if (opts.expr) pose.expr = opts.expr;
       if (opts.talk) pose.talk = Math.max(0, Math.sin(t * 23) * 0.6 + Math.sin(t * 9.7) * 0.4) * opts.talk;
+      const sy = TOP + HR + 4 - pose.bob + (pose.nod || 0) + HR - 4 + 10;
+      const S = { L: [CW / 2 - 34, sy], R: [CW / 2 + 34, sy] };
+      let gest = opts.gesture || (opts.hold ? 'hold' : walking ? 'walk' : 'idle');
+      if (gest === 'walk') gest = [[-1e9, 'idle']];
+      pose.G = resolveGesture(gest, t, S);
+      if (walking && (opts.gesture === undefined)) { const a = Math.sin(ph) * 22; pose.G.L = [pose.G.L[0] + a, pose.G.L[1]]; pose.G.R = [pose.G.R[0] - a, pose.G.R[1]]; }
+      if (opts.hold && !opts.gesture) { pose.G.prop = 'radio'; }
+      if (opts.prop) { pose.G.prop = opts.prop; pose.G.propHand = opts.hand || 'R'; }
       drawPerson(g, person, pose); tex.needsUpdate = true;
-      // turn toward the camera with limited yaw so they are never edge-on
       const wp = new THREE.Vector3(); group.getWorldPosition(wp);
-      const yaw = Math.atan2(cam.x - wp.x, cam.z - wp.z) - (P.faceYaw || 0);
+      const yaw = Math.atan2(cam.x - wp.x, cam.z - wp.z) - (P.faceYaw || 0) - group.rotation.y;
       mesh.rotation.y = THREE.MathUtils.clamp(yaw, -0.7, 0.7) + (P.faceYaw || 0);
     },
   };
@@ -212,3 +324,4 @@ export const PALETTES = [
   { skin: '#f6dfc8', hair: '#8a5a3a', jacket: '#c9452f', jacket2: '#9b3226', pants: '#3b3640', shoes: INK, tie: '#f3ead6', hat: 'bowler', hatColor: '#3a3236' },
   { skin: '#f1d4b8', hair: '#4a3426', jacket: '#e1ad35', jacket2: '#b88a26', pants: '#3f4a5a', shoes: INK, tie: '#3f6f8f', hat: 'cap', hatColor: '#e8702f' },
 ];
+export { resolveGesture, TOP, HR, CW, CH };
