@@ -249,3 +249,12 @@ Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxf
 - Animation: while a character's line plays, that character's mouth flaps (open/closed every 2-3 frames on voiced audio,
   from that clip's loudness) and the shot frames them (close-up or over-the-shoulder). Narrator lines show the action.
 - Captions: same one-word style; a character's words in that character's accent colour, narrator in white.
+
+## Next series to build (owner, 6 Nov): "THE CASTLE" (10 x ~30 s horror episodes)
+Source doc: https://claude.ai/artifact/M1QExpEAQp7Qj7TPj5ehyV ("THE CASTLE — Enhanced Horror Series Script"; read it with the
+Claude Docs connector). Owner's changes: tell it as a "YOU" story (second person: "You and your sister...", never "I/we"),
+and every cliffhanger must feel like the VIEWER is physically there (POV camera = viewer's eyes, characters look/talk into
+the lens, the threat is behind/next to the viewer, breath panned to both ears, last line addresses "you"). Keep the doc's
+episode beats, fear rules and consistency rules (sister: 12, yellow raincoat, dark braid, red flashlight; black stone castle,
+candlelight + blue moonlight). Use per-character voices (sister = young girl voice from the cast). Not started yet - waiting
+for the owner's go after the lighthouse test video.
