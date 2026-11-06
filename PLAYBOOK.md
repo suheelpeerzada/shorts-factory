@@ -229,3 +229,23 @@ Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxf
   The 20:00 slot carries the next part of a running multi-part series; otherwise both are standalone.
 - Long video: every Friday 17:00 IST (YouTube + Facebook). Pipeline: Tue 01:23 plan + build -> Wed 01:37-01:40 render
   segments 1-4 -> Thu 01:51 assemble + schedule. Segment and assemble runs take the "built" long row with the EARLIEST slot.
+
+## Shorts only, quality first (owner, 6 Nov) - overrides earlier sections
+- Long videos are PAUSED (all long-video scheduled tasks disabled; Mawson stays "built", unposted). Do not build any.
+- Still 2 shorts/day (08:00, 20:00). Spend the time on quality (reference-channel section), not on more videos.
+
+## Character voices (owner, 6 Nov)
+- Henry (pVnrL6sighQX7hVz89cp) stays the narrator. Every line a CHARACTER speaks gets its own voice that fits who they
+  are (age, gender, accent, temperament). Pick from the cast on the board: ArtifactData collection `voices`, doc `cast`
+  (archetype -> voice_id). Only if nothing fits, search creative_list_voices (use_cases characters_animation, en) and add the
+  pick to `cast`. Never use voices that imitate real or trademarked people/characters.
+- Same character = same voice forever: record it in `cast.assignments` ({"<character key>": "<voice_id>"}) and reuse it in
+  later parts of a series.
+- Script it as a mix: narrator lines + 2-5 short character lines (one sentence each, punchy, in-character). Mark speakers
+  in script.txt as `[NARRATOR]` / `[CHARACTER_KEY]`.
+- Generate each line separately with that voice (eleven_v4 + audio tags for emotion, generations_count 1), then build one
+  voice track: place lines back to back, overlapping cut-ins allowed, gaps <= 0.3 s. Align words per clip (whisper) and
+  keep the speaker on every word in words.json.
+- Animation: while a character's line plays, that character's mouth flaps (open/closed every 2-3 frames on voiced audio,
+  from that clip's loudness) and the shot frames them (close-up or over-the-shoulder). Narrator lines show the action.
+- Captions: same one-word style; a character's words in that character's accent colour, narrator in white.
