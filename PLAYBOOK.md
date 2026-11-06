@@ -211,19 +211,6 @@ The brand's Facebook Page (Metricool facebookData 1329111743628082) is connected
 + facebook, with "facebookData": {"type": "REEL", "title": "<the YouTube title without #shorts>"}. The weekly long video:
 youtube + facebook, with "facebookData": {"type": "POST", "title": "<the video title>"}. Same text, cover and first comment.
 
-## Reference channel: Ricks Clips (@RicksClips3000, shorts at 3-31M views) - measured 6 Nov
-Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxford):
-- Voice pace 223 wpm vs ours 160-174. Pauses over 0.4 s: 2 vs ours 9-17 (max 0.46 s vs 0.7-0.9 s). Audio never drops
-  below -35 dB. -14 LUFS (same as ours). -> write ~200+ wpm scripts, ask ElevenLabs for a brisk read, trim pauses >0.3 s.
-- Story: second person POV ("Imagine your boss walks you..."), one relatable situation that escalates, emotional turn,
-  ominous twist, the real explanation only at the very end, punchy last line. 60 s works when the story pulls.
-  Topics framed as a puzzle: "Why Perfect Railroads Don't Work", "Why Sailors Carried Storm Oil", "How a Mirror Rigged a Horse Race".
-- Visual: a new camera setup every ~1-2 s, joined by camera moves/dissolves (few hard cuts). Many prop inserts
-  (clock, button, inbox, calendar, desk). Characters fill the frame, wide-angle lens, strong low/high angles.
-- Look: still a toon style (outlined, flat-ish), but bright saturated colours, drawn texture (brick lines, tiles),
-  flat light-shaft shapes, soft gradients, glows and window light at night. Achievable in our engine.
-- Captions: one word at a time, white with black outline, no box, centred mid-screen.
-
 ## Posting schedule (owner, 6 Nov) - overrides every earlier slot/time in this file
 - Shorts: 2 per day, 08:00 and 20:00 IST (YouTube + Instagram + Facebook). The daily 11:07 run makes tomorrow's two.
   The 20:00 slot carries the next part of a running multi-part series; otherwise both are standalone.
@@ -232,23 +219,8 @@ Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxf
 
 ## Shorts only, quality first (owner, 6 Nov) - overrides earlier sections
 - Long videos are PAUSED (all long-video scheduled tasks disabled; Mawson stays "built", unposted). Do not build any.
-- Still 2 shorts/day (08:00, 20:00). Spend the time on quality (reference-channel section), not on more videos.
-
-## Character voices (owner, 6 Nov)
-- Henry (pVnrL6sighQX7hVz89cp) stays the narrator. Every line a CHARACTER speaks gets its own voice that fits who they
-  are (age, gender, accent, temperament). Pick from the cast on the board: ArtifactData collection `voices`, doc `cast`
-  (archetype -> voice_id). Only if nothing fits, search creative_list_voices (use_cases characters_animation, en) and add the
-  pick to `cast`. Never use voices that imitate real or trademarked people/characters.
-- Same character = same voice forever: record it in `cast.assignments` ({"<character key>": "<voice_id>"}) and reuse it in
-  later parts of a series.
-- Script it as a mix: narrator lines + 2-5 short character lines (one sentence each, punchy, in-character). Mark speakers
-  in script.txt as `[NARRATOR]` / `[CHARACTER_KEY]`.
-- Generate each line separately with that voice (eleven_v4 + audio tags for emotion, generations_count 1), then build one
-  voice track: place lines back to back, overlapping cut-ins allowed, gaps <= 0.3 s. Align words per clip (whisper) and
-  keep the speaker on every word in words.json.
-- Animation: while a character's line plays, that character's mouth flaps (open/closed every 2-3 frames on voiced audio,
-  from that clip's loudness) and the shot frames them (close-up or over-the-shoulder). Narrator lines show the action.
-- Captions: same one-word style; a character's words in that character's accent colour, narrator in white.
+- Still 2 shorts/day (08:00, 20:00), in the standard style (sections 1-5 + caption feedback + analytics learnings).
+- Owner rolled back the 6 Nov "new style" test (fast-cut reference style + per-character voices) - do NOT use it for daily shorts.
 
 ## Next series to build (owner, 6 Nov): "THE CASTLE" (10 x ~30 s horror episodes)
 Source doc: https://claude.ai/artifact/M1QExpEAQp7Qj7TPj5ehyV ("THE CASTLE — Enhanced Horror Series Script"; read it with the
