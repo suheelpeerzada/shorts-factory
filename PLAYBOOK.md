@@ -210,3 +210,16 @@ avg 0:23 of 0:41 (~57%) / +2 subs / 7% like rate. 96-98% of views from the Short
 The brand's Facebook Page (Metricool facebookData 1329111743628082) is connected. Every Short: providers youtube + instagram
 + facebook, with "facebookData": {"type": "REEL", "title": "<the YouTube title without #shorts>"}. The weekly long video:
 youtube + facebook, with "facebookData": {"type": "POST", "title": "<the video title>"}. Same text, cover and first comment.
+
+## Reference channel: Ricks Clips (@RicksClips3000, shorts at 3-31M views) - measured 6 Nov
+Measured on "The Job Nobody Wants in Japan" (60.6 s) vs ours (Cleopatra/Mike/Oxford):
+- Voice pace 223 wpm vs ours 160-174. Pauses over 0.4 s: 2 vs ours 9-17 (max 0.46 s vs 0.7-0.9 s). Audio never drops
+  below -35 dB. -14 LUFS (same as ours). -> write ~200+ wpm scripts, ask ElevenLabs for a brisk read, trim pauses >0.3 s.
+- Story: second person POV ("Imagine your boss walks you..."), one relatable situation that escalates, emotional turn,
+  ominous twist, the real explanation only at the very end, punchy last line. 60 s works when the story pulls.
+  Topics framed as a puzzle: "Why Perfect Railroads Don't Work", "Why Sailors Carried Storm Oil", "How a Mirror Rigged a Horse Race".
+- Visual: a new camera setup every ~1-2 s, joined by camera moves/dissolves (few hard cuts). Many prop inserts
+  (clock, button, inbox, calendar, desk). Characters fill the frame, wide-angle lens, strong low/high angles.
+- Look: still a toon style (outlined, flat-ish), but bright saturated colours, drawn texture (brick lines, tiles),
+  flat light-shaft shapes, soft gradients, glows and window light at night. Achievable in our engine.
+- Captions: one word at a time, white with black outline, no box, centred mid-screen.
