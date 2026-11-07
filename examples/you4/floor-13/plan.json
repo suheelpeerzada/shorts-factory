@@ -1,0 +1,4 @@
+{"title": {"lines": ["THIS BUILDING HAS", "NO 13TH FLOOR"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "DOORMAN": "#ffd23a", "GIRL": "#ff8a8a"},
+ "locs": [[0, 6.65, "car"], [6.65, 12.3, "panel"], [12.3, 17.6, "lobby"], [17.6, 24.0, "night"], [24.0, 29.3, "climb"], [29.3, 36.6, "bricks"], [36.6, 46.9, "lever"], [46.9, 52.5, "open"]],
+ "inner_cuts": [], "time_skips": []}

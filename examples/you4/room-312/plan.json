@@ -1,0 +1,1 @@
+{"title": {"lines": ["ROOM 312", "IS ALWAYS BOOKED"], "part": null, "until": 1.9}, "colors": {"NARRATOR": "#ffffff", "MANAGER": "#ffd23a"}, "locs": [[0, 9.3, "lobby"], [9.3, 13.2, "manager"], [13.2, 21.0, "keys"], [21.0, 25.0, "lift"], [25.0, 28.4, "hall"], [28.4, 45.7, "room"], [45.7, 49.36, "reveal"]], "inner_cuts": [7.0, 30.6, 31.6, 33.2], "time_skips": []}

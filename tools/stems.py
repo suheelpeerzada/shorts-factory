@@ -1,0 +1,144 @@
+# Music + SFX stems for the four "you" shorts. Usage: python3 stems.py <video>  (writes <video>/audio/music.wav, sfx.wav)
+import sys, json, re, numpy as np
+from scipy.io import wavfile
+sys.path.insert(0, "/root/you4/tools")
+from dsp import SR, ns, tt, rng, lp, hp, bp, fades
+import instruments as I
+
+VID = sys.argv[1]
+T = json.load(open(f"/root/you4/{VID}/audio/timing.json")); DUR = T["dur"]; W = T["words"]; LN = T["lines"]
+N = ns(DUR) + SR; R = rng(abs(hash(VID)) % 10000)
+music = np.zeros(N); sfx = np.zeros(N); F = I.m2f
+def w(line, rx):
+    for q in W:
+        if q["line"] == line and re.search(rx, q["w"], re.I): return q["s"]
+    raise SystemExit(f"no word {line} {rx}")
+def put(buf, x, t, g=1.0):
+    i = ns(max(0, t))
+    if x.ndim == 2: x = x.mean(axis=0)
+    if i >= len(buf): return
+    x = x[: len(buf) - i]; buf[i:i + len(x)] += x * g
+def noise_burst(dur, lo, hi, tau):
+    x = bp(R.standard_normal(ns(dur)), lo, hi, 2); t = tt(dur); return fades(x * np.exp(-t / tau), 0.001, 0.01)
+def whoosh(dur=0.4):
+    t = tt(dur); x = R.standard_normal(len(t)); env = np.sin(np.pi * t / dur) ** 2; return lp(bp(x, 500, 3000, 2) * env, 5000)
+def thunk(f=90, dur=0.25):
+    t = tt(dur); return np.sin(2 * np.pi * f * t) * np.exp(-t / 0.06) + 0.4 * lp(R.standard_normal(len(t)), 900) * np.exp(-t / 0.03)
+def click(): return noise_burst(0.05, 2000, 8000, 0.004) + 0.5 * noise_burst(0.05, 600, 1500, 0.01)
+def ding(f=1320, dur=1.6):
+    t = tt(dur); return (np.sin(2 * np.pi * f * t) + 0.4 * np.sin(2 * np.pi * f * 2.76 * t)) * np.exp(-t / 0.5) * 0.6
+def ring(dur=1.2):
+    t = tt(dur); x = (np.sin(2 * np.pi * 440 * t) + np.sin(2 * np.pi * 480 * t)) * (np.sin(2 * np.pi * 20 * t) > 0); return x * 0.35 * (t < dur - 0.05)
+def rumble(t0, dur, g=0.5):
+    x = lp(R.standard_normal(ns(dur)), 200, 2); env = np.sin(np.pi * tt(dur) / dur) ** 1.5; put(sfx, x * env, t0, g)
+def sea(t0, dur, g=0.3):
+    x = lp(R.standard_normal(ns(dur)), 900); m = 0.55 + 0.45 * np.sin(2 * np.pi * tt(dur) / 4.3) ** 2; put(sfx, x * m, t0, g)
+def rain(t0, dur, g=0.2): put(sfx, hp(R.standard_normal(ns(dur)), 2500) * (0.7 + 0.3 * np.sin(2 * np.pi * tt(dur) / 3.1)), t0, g)
+def wind(t0, dur, g=0.25):
+    x = bp(R.standard_normal(ns(dur)), 250, 900, 2) * (0.6 + 0.4 * np.sin(2 * np.pi * tt(dur) / 5.3) ** 2); put(sfx, x, t0, g)
+def tick(t0, t1, g=0.25):
+    t = t0
+    while t < t1: put(sfx, noise_burst(0.03, 3000, 7000, 0.004), t, g); t += 0.5
+def hum(t0, dur, f=60, g=0.2):
+    t = tt(dur); x = np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * f * 2 * t); env = np.minimum(1, np.minimum(t / 0.3, (dur - t) / 0.3)); put(sfx, lp(x * env, 500), t0, g)
+def engine(t0, dur, g=0.3):
+    t = tt(dur); x = lp(R.standard_normal(len(t)), 300) * (0.5 + 0.5 * (np.sin(2 * np.pi * 6 * t) > 0)); put(sfx, x, t0, g)
+def foghorn(t0, g=0.4):
+    d = 2.2; t = tt(d); x = np.sign(np.sin(2 * np.pi * 73 * t)) * np.minimum(1, np.minimum(t / 0.2, (d - t) / 0.4)); put(sfx, lp(x, 600), t0, g)
+def creak(t0, dur=0.8, g=0.3):
+    t = tt(dur); f = 180 + 120 * np.sin(np.pi * t / dur); x = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.sin(np.pi * t / dur); put(sfx, bp(x, 300, 2000), t0, g)
+def heartbeat(t0, t1, g=0.5, start=0.9, end=0.45):
+    t = t0
+    while t < t1:
+        put(music, I.timpani(F(33), 0.55, R, 0.5), t, g); put(music, I.timpani(F(33), 0.35, R, 0.4), t + 0.22, g * 0.8)
+        t += start + (end - start) * (t - t0) / max(0.1, t1 - t0)
+def stab(t, low=33, g=0.6):
+    put(music, I.brass(F(low + 12), 0.6, 1.0, R, "stab"), t, g); put(music, I.timpani(F(low - 5), 0.9, R, 2.2), t, g); put(music, I.cymbal(0.5, R, 2.5), t, g * 0.5)
+def mbox(t0, t1, notes, step=0.62, g=0.3):
+    k = 0
+    while t0 + k * step < t1: put(music, I.musicbox(F(notes[k % len(notes)]), 0.4, R, 1.4), t0 + k * step, g); k += 1
+cuts = []
+
+if VID == "wojtek":
+    # playful military: snare + fife march, brass hits; tense timpani at Cassino; warm glock at the zoo
+    k = 0; t = 0.2
+    mel = [72, 74, 76, 79, 76, 74, 72, 67]
+    while t < w(2, "^Monte"):
+        put(music, I.snare(0.5 if k % 2 else 0.8, R), t, 0.35)
+        if k % 2 == 0: put(music, I.fife(F(mel[(k // 2) % len(mel)]), 0.28, 0.6, R), t, 0.35)
+        if k % 8 == 0: put(music, I.brass(F(43 + (k // 8 % 2) * 5), 0.5, 0.7, R), t, 0.35)
+        t += 0.42; k += 1
+    stab(w(0, "^battle"), 31, 0.5)
+    put(music, I.pad([F(38), F(45), F(50)], w(2, "^You$") - w(2, "^Monte"), 0.4, R, att=0.4, rel=0.5), w(2, "^Monte"), 0.45)
+    heartbeat(w(2, "^Monte"), w(2, "^forward"), 0.45, 0.8, 0.45)
+    stab(w(2, "^carried"), 33, 0.55)
+    for i, n in enumerate([72, 76, 79, 84, 79, 76, 72, 76, 79, 84]): put(music, I.glock(F(n), 0.4, R, 1.4), w(2, "^You$") + 0.1 + i * 0.5, 0.3)
+    put(music, I.pad([F(48), F(55), F(60), F(64)], DUR - w(2, "^You$"), 0.3, R, att=0.6, rel=1.2), w(2, "^You$"), 0.35)
+    put(music, I.brass(F(36), 0.6, 1.0, R, "stab"), w(2, "^outranked"), 0.5); put(music, I.cymbal(0.4, R, 2.0), w(2, "^outranked"), 0.3)
+    # sfx
+    for k2 in range(6): put(sfx, thunk(60, 0.4), 0.3 + k2 * 1.1 + R.uniform(0, 0.3), 0.35);
+    rumble(0.2, 7.0, 0.35); wind(7.5, 7.0, 0.2)
+    put(sfx, noise_burst(0.3, 1000, 4000, 0.1), w(0, "^bottle"), 0.15)
+    put(sfx, thunk(80, 0.3), w(0, "^wrestles"), 0.5); put(sfx, thunk(70, 0.3), w(0, "^wrestles") + 0.4, 0.45)
+    sea(w(0, "^Then"), w(1, "Wojtek") + 1 - w(0, "^Then"), 0.22)
+    put(sfx, thunk(140, 0.18), w(1, "Wojtek"), 0.7)                # stamp
+    put(sfx, thunk(140, 0.18), w(2, "^number"), 0.6)
+    rumble(w(2, "^Monte"), 8.5, 0.4)
+    for k2 in range(5): put(sfx, thunk(55, 0.5), w(2, "^Monte") + 0.6 + k2 * 1.6, 0.4)
+    put(sfx, thunk(90, 0.3), w(2, "^up"), 0.5)
+    rain(w(2, "Wojtek"), DUR - w(2, "Wojtek"), 0.12)
+
+if VID == "extra-passenger":
+    put(music, I.pad([F(45), F(52), F(57), F(60)], w(2, "^Halfway"), 0.32, R, att=1.2, rel=1.0), 0, 0.35)
+    mbox(0.4, w(2, "^Halfway"), [81, 76, 72, 76, 81, 84, 83, 76])
+    put(music, I.pad([F(40), F(47), F(52), F(55)], w(4, "^You$") - w(2, "^Halfway"), 0.42, R, att=0.4, rel=0.4), w(2, "^Halfway"), 0.45)
+    heartbeat(w(2, "^At$"), w(2, "^Thirteen"), 0.5, 0.75, 0.42)
+    stab(w(2, "^Thirteen"), 33, 0.6)
+    put(music, I.pad([F(45), F(48), F(52)], DUR - w(4, "^You$"), 0.36, R, att=0.8, rel=1.5), w(4, "^You$"), 0.4)
+    mbox(w(4, "^You$") + 0.3, w(4, "^Tonight"), [81, 76, 72, 76], 0.7)
+    heartbeat(w(4, "^So"), DUR - 0.8, 0.45, 0.6, 0.35); stab(w(4, "^move"), 31, 0.55)
+    sea(0, DUR, 0.25); engine(w(2, "^Tonight"), w(2, "^At$") - w(2, "^Tonight"), 0.12)
+    foghorn(w(2, "^fog"), 0.35); put(sfx, thunk(50, 0.5), w(2, "^coughs"), 0.5)
+    for k2 in range(3): put(sfx, click(), w(2, "^flicker") + k2 * 0.18, 0.35)
+    for q in ["^Ten", "^Eleven", "^Twelve", "^Thirteen"]: put(sfx, click(), w(2, q) - 0.05, 0.6)
+    for k2 in range(12): put(sfx, thunk(110, 0.15), w(2, "^passengers") + k2 * 0.22, 0.25)   # footsteps on board
+    put(sfx, noise_burst(0.3, 1500, 6000, 0.08), w(4, "^logbook"), 0.3)
+    creak(w(4, "^seat"), 1.2, 0.3); foghorn(w(4, "^dock"), 0.3)
+
+if VID == "room-312":
+    # eerie hotel lounge: vibes + pad, clock ticks, ding, phone ring
+    put(music, I.pad([F(43), F(50), F(55), F(58)], w(2, "^Tonight"), 0.3, R, att=1.2, rel=1.0), 0, 0.35)
+    for i in range(int(w(2, "^Tonight") / 0.7)): put(music, I.vibes(F([67, 70, 74, 70, 65, 70, 74, 77][i % 8]), 0.45, R), 0.4 + i * 0.7, 0.28)
+    stab(w(2, "^empty"), 31, 0.5)
+    put(music, I.pad([F(38), F(45), F(50), F(53)], w(2, "^You$") - w(2, "^empty"), 0.4, R, att=0.4, rel=0.4), w(2, "^empty"), 0.42)
+    heartbeat(w(2, "^walk"), w(2, "^You$"), 0.45, 0.8, 0.5)
+    stab(w(2, "^yours"), 33, 0.6)
+    put(music, I.pad([F(43), F(46), F(50)], DUR - w(2, "^yours"), 0.38, R, att=0.4, rel=1.2), w(2, "^yours"), 0.4)
+    mbox(w(3, "^Welcome"), DUR, [79, 74, 70, 74], 0.7, 0.3); stab(w(3, "^tonight"), 31, 0.45)
+    tick(0.3, w(2, "^Tonight") + 2, 0.18)
+    put(sfx, ding(1320), w(2, "^dings"), 0.5); put(sfx, thunk(70, 0.4), w(2, "^floor") + 0.2, 0.3)
+    creak(w(2, "^door"), 1.0, 0.3)
+    put(sfx, noise_burst(0.3, 1500, 6000, 0.08), w(2, "^ledger"), 0.3)
+    for k2 in range(2): put(sfx, ring(1.0), w(2, "^rings") - 0.3 + k2 * 1.3, 0.55)
+    put(sfx, click(), w(2, "^up\\."), 0.5)
+
+if VID == "floor-13":
+    put(music, I.pad([F(45), F(52), F(57), F(60)], w(2, "^2"), 0.3, R, att=1.2, rel=1.0), 0, 0.35)
+    mbox(0.4, w(1, "^If"), [81, 76, 72, 76, 81, 84, 83, 76])
+    put(music, I.pad([F(38), F(45), F(50), F(53)], w(4, "^You$") - w(2, "^2"), 0.42, R, att=0.4, rel=0.5), w(2, "^2"), 0.45)
+    heartbeat(w(2, "^elevator"), w(2, "^stops"), 0.45, 0.8, 0.45)
+    stab(w(2, "^stops"), 33, 0.5)
+    put(music, I.pad([F(45), F(48), F(52)], DUR - w(4, "^You$"), 0.38, R, att=0.6, rel=1.2), w(4, "^You$"), 0.42)
+    mbox(w(4, "^You$"), w(4, "^doors"), [81, 76, 72, 76], 0.7, 0.28)
+    heartbeat(w(4, "^doors"), w(5, "^turn"), 0.5, 0.55, 0.3); stab(w(5, "^turn"), 31, 0.65)
+    hum(0.2, DUR - 0.4, 55, 0.12)
+    put(sfx, click(), w(0, "^lights"), 0.6); put(sfx, click(), w(2, "^click"), 0.7)
+    rumble(w(2, "^climbs"), 3.8, 0.35); put(sfx, ding(990, 1.2), w(2, "^11"), 0.25); put(sfx, ding(990, 1.2), w(2, "^12"), 0.25)
+    put(sfx, thunk(60, 0.5), w(2, "^stops"), 0.7)
+    for q in ["^Three", "^slow", "^knocks"]: put(sfx, thunk(95, 0.25), w(2, q), 0.75)
+    creak(w(4, "^doors"), 1.8, 0.4); put(sfx, lp(R.standard_normal(ns(1.5)), 1500) * np.exp(-tt(1.5) / 0.4), w(4, "^opening"), 0.35)  # bricks
+
+for name, x in [("music.wav", music), ("sfx.wav", sfx)]:
+    x = x[: ns(DUR)]; x = x / (np.max(np.abs(x)) + 1e-9) * 0.9
+    wavfile.write(f"/root/you4/{VID}/audio/{name}", SR, x.astype(np.float32))
+print(VID, "stems ok")

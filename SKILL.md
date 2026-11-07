@@ -62,7 +62,10 @@ Follow every rule. They are what made the lighthouse short work. Reference build
   - Series parts add a `PART n` badge: `#c9353a`, 64 px, 6 px black border, radius 16.
 - **Captions**, one word at a time, no box:
   - Same font, 118 px, 9 px black stroke, shadow `0 8px 16px rgba(0,0,0,0.55)`.
-  - Centred at 62 % height, UPPERCASE, trailing `, ; :` removed, in the speaker's colour.
+  - Placed at 67 % height (bottom) or 14 % (top), whichever side the subject is NOT on: each word projects the camera's
+    focus point to the screen (subject above y = −0.18 in NDC → bottom, else top), smoothed by a majority of 5 words in
+    the same location; a camera can force it with `cap: 'top'|'bottom'` (close-ups of papers and ledgers → top).
+    Captions must never cover the main content. UPPERCASE, trailing `, ; :` removed, in the speaker's colour.
   - Each word pops from 0.7× to 1.08× over 0.07 s and settles 0.08 smaller.
   - A word shows from 0.03 s before its start until the next word, and hides 0.45 s after its end.
   - Captions start after the title card.
@@ -121,7 +124,9 @@ Follow every rule. They are what made the lighthouse short work. Reference build
 - **Hands use things.** Every character line and reaction gets a gesture from the timeline:
   `opts.gesture = [[t, name, {prop, hand, angle, at}], ...]` (blends over 0.22 s, deterministic per frame).
   - Gestures: idle talk talk2 point pointL fists scared hips shrug wave hold holdR lantern lift mouth facepalm reach grip.
-  - Props drawn in the hand: lantern, radio, mug, key, book, spyglass.
+  - Props drawn in the hand: lantern, radio, mug, key, book, spyglass, bottle, counter, phone, candle, paper.
+  - More gestures: reachL, salute, counter (clicks), phone (handset at the ear), wag (finger), push, carry, wipe.
+  - Animals: `lib/bear.js` draws a bear in the same ink style (cub or adult; idle, carry, hold, salute, wave, drink, wrestle).
   - The keeper points while holding a lantern in the other hand; the captain holds a radio to his mouth; you point at the
     radio or the log and grab your face when scared.
 - **Using 3D tools** (`grip`): put the character directly behind the tool, facing the camera. Each frame, cast a ray from
@@ -138,8 +143,10 @@ Follow every rule. They are what made the lighthouse short work. Reference build
 - Walking: stride about 1.6 Hz, legs swing, arms counter-swing.
 
 ## 9. Lighting and post (`Stage.jsx`)
-- `ThreeCanvas` with shadows flat, vertical FOV 80, near 0.1, far 1200. Directional key light shadows 2048, bias −0.0006,
-  normalBias 0.03.
+- `ThreeCanvas` with shadows flat, vertical FOV 80, near 0.1, far 1200, ACES tone mapping at exposure 1.12.
+- Owner wants strong light and shadows: key light × 1.45 (`LIGHT_BOOST`), hemisphere × 0.78 (`SHADOW_DEPTH`), a rim light
+  from behind at 0.4 × key (hemisphere sky colour), key shadows 4096 with radius 3, bias −0.0006, normalBias 0.03.
+  Every point/spot light × 1.25, and the 3 brightest (≥ 6) cast shadows (1024 maps); `userData.noShadow` opts a light out.
 - **Night:**
   - Hemisphere `#3a5078`/`#0a1018` at 0.55; moon key `#9fb4d8` at 0.9; fog `#0d1729` 40→300.
   - Sky `#050913` → `#121e36` → `#24324c` with stars and a moon disc plus halo.
@@ -184,6 +191,9 @@ Follow every rule. They are what made the lighthouse short work. Reference build
 - Seeded random only (`rng(seed)`).
 - Before hand-off, bundle-check with esbuild (`--bundle --packages=external --jsx=automatic --loader:.js=jsx`) and
   validate every word cue.
+- Run every scene's logic headlessly before hand-off (Playwright page, real three, remotion/react/postprocessing
+  stubbed): build each location and step its update + camera at 6 Hz; it must finish with no errors. Never create
+  textures inside a per-frame update (redraw one canvas and set needsUpdate).
 - Check new faces, gestures and props on a sprite sheet: bundle `char.js` with `three` aliased to a small stub, draw it
   with Playwright, and look at it.
 
@@ -206,6 +216,8 @@ Follow every rule. They are what made the lighthouse short work. Reference build
   - Writes to `output\tests\` or `output\daily\` (daily jobs also get a cover jpg at 1.6 s), then opens the result.
   - Uses CRLF line endings, and prints "send Claude a screenshot" on failure.
 - Package versions: Remotion 4.0.541, three 0.170, @react-three/fiber 9, postprocessing 6.
+- Before a long render, ship a `preview_*.bat` that renders the `Preview` composition (2 frames per location via
+  `<Freeze>`, `--sequence --scale=0.5`) so framing is checked in ~2 minutes; several jobs share one `render_<n>in1.bat`.
 - **After the render:** on the laptop, use ffmpeg to tile 15 frames from the mp4 into one sheet, then stage and inspect
   it. Look for washed-out frames, bad framing, blocked subjects, invisible eyes or props, floating heads, wrong
   expressions, and empty sets. Fix them, then send a new test clip.

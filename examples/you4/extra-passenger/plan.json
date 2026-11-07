@@ -1,0 +1,4 @@
+{"title": {"lines": ["THE LAST FERRY", "HAS ONE RULE"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "CAPTAIN": "#ffd23a", "STRANGER": "#8fd6ff"},
+ "locs": [[0, 6.55, "pier"], [6.55, 11.1, "captain"], [11.1, 16.5, "board"], [16.5, 23.05, "fog"], [23.05, 32.5, "arrive"], [32.5, 42.1, "cabin"], [42.1, 54.74, "stuck"]],
+ "inner_cuts": [45.4, 47.8], "time_skips": []}

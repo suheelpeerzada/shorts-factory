@@ -1,0 +1,4 @@
+{"title": {"lines": ["THE BEAR WHO", "JOINED THE ARMY"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "SERGEANT": "#ffd23a"},
+ "locs": [[0, 7.45, "hill"], [7.45, 14.65, "road"], [14.65, 21.45, "tent"], [21.45, 31.15, "dock"], [31.15, 34.9, "desk"], [34.9, 43.75, "cassino"], [43.75, 47.5, "badge"], [47.5, 54.04, "zoo"]],
+ "inner_cuts": [17.6], "time_skips": [47.5]}
