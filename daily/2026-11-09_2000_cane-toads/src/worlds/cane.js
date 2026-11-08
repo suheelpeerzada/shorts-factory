@@ -89,7 +89,7 @@ function stencilCrate(lines, s = [1.6, 1.0, 1.0], seed = 2) {
   g.add(part(new THREE.BoxGeometry(...s), toon('#ffffff', paintTexture({ base: '#b08a5a', kind: 'planks', seed, repeat: [2, 1] })), [0, s[1] / 2, 0], { outline: 0.02 }));
   for (const y of [0.12, s[1] - 0.12]) g.add(part(new THREE.BoxGeometry(s[0] + 0.04, 0.1, s[2] + 0.04), toon('#7a5236'), [0, y, 0], { outline: 0.008, edges: false }));
   for (let i = 0; i < 5; i++) { const h = new THREE.Mesh(new THREE.CircleGeometry(0.035, 10), toon('#1a1210')); h.position.set(-s[0] * 0.36 + i * s[0] * 0.18, s[1] * 0.82, s[2] / 2 + 0.006); g.add(h); }  // air holes
-  if (lines) { const c = card(lines, s[0] * 0.86, s[1] * 0.5, { sizes: lines.map((l, i) => (i ? 150 : 110)), bg: '#c9a46a', fg: '#2b1a12', border: '#2b1a12' }); c.position.set(0, s[1] * 0.45, s[2] / 2 + 0.012); g.add(c); }
+  if (lines) { const c = card(lines, s[0] * 0.86, s[1] * 0.5, { sizes: lines.map((l) => Math.min(150, Math.floor(1150 / l.length))), bg: '#c9a46a', fg: '#2b1a12', border: '#2b1a12' }); c.position.set(0, s[1] * 0.45, s[2] / 2 + 0.012); g.add(c); }
   return g;
 }
 function shipHull(x, z, label = 'HONOLULU') {
@@ -164,7 +164,7 @@ export function makeCane(id) {
       const br = barrel(); br.position.set(-3.6, 0, 1.6); root.add(br); const br2 = barrel('#5b6a7a'); br2.position.set(-2.8, 0, 2.1); root.add(br2);
       const rp = rope(0.4); rp.position.set(3.2, 0, 2.6); root.add(rp);
       const fl = flag('#2f6fb0'); fl.group.position.set(9, 0, 0); root.add(fl.group); U((t) => fl.update(t));
-      const sign = card(['CAIRNS WHARF', 'QUEENSLAND 1935'], 2.4, 1.0, { sizes: [150, 110], bg: '#f4ead2' }); sign.position.set(-8.6, 2.4, 2.2); sign.rotation.y = 0.4; root.add(sign);
+      const sign = card(['CAIRNS WHARF', 'QUEENSLAND 1935'], 2.4, 1.0, { sizes: [100, 80], bg: '#f4ead2' }); sign.position.set(-8.6, 2.4, 2.2); sign.rotation.y = 0.4; root.add(sign);
       root.add(part(new THREE.CylinderGeometry(0.06, 0.06, 2.4, 8), toon('#5b3a2a'), [-8.6, 1.2, 2.15], { outline: 0.01, edges: false }));
       const gulls = []; for (let i = 0; i < 4; i++) { const gl = new THREE.Mesh(new THREE.PlaneGeometry(0.6, 0.2), toon('#f3ead6', null, { side: THREE.DoubleSide })); root.add(gl); gulls.push([gl, i]); }
       U((t) => gulls.forEach(([gl, i]) => { gl.position.set(-10 + ((t * 2 + i * 6) % 24), 8 + i + Math.sin(t * 2 + i), -10); gl.rotation.z = Math.sin(t * 9 + i) * 0.4; }));
@@ -225,7 +225,7 @@ export function makeCane(id) {
       const crowd2 = toadCrowd(60, { x: [-6, 6], z: [-30, -14], size: [0.2, 0.3], tint: '#c9d4ee', seed: 22 }); root.add(crowd2.group);
       const board = new THREE.Group(); board.position.set(-3.6, 0, -1.5); board.rotation.y = 0.5; root.add(board);
       board.add(part(new THREE.BoxGeometry(0.1, 2.0, 0.1), toon('#5b3a2a'), [-0.9, 1.0, 0], { outline: 0.008, edges: false }), part(new THREE.BoxGeometry(0.1, 2.0, 0.1), toon('#5b3a2a'), [0.9, 1.0, 0], { outline: 0.008, edges: false }));
-      const bc = card(['CANE TOADS TODAY', '200,000,000+'], 2.3, 1.1, { sizes: [110, 170], bg: '#ffd23a', fg: INK }); bc.position.set(0, 2.2, 0.06); board.add(bc);
+      const bc = card(['CANE TOADS TODAY', '200,000,000+'], 2.3, 1.1, { sizes: [76, 100], bg: '#ffd23a', fg: INK }); bc.position.set(0, 2.2, 0.06); board.add(bc);
       U((t, cam) => {
         crowd.update(t, cam, { hop: 0.6, dir: [0, 0.22], show: 1, t0: 6.3 }); crowd2.update(t, cam, { hop: 0.5, dir: [0, 0.2], show: 1, t0: 6.3 });
         board.scale.setScalar(pop(ramp(t, w(0, '^million') - 0.15, w(0, '^million') + 0.2)));
@@ -367,7 +367,7 @@ export function makeCane(id) {
       const AU = australiaTex();
       const board = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 2.08), new THREE.MeshBasicMaterial({ map: AU.tex, fog: true })); board.position.set(0, 1.9, 0.02); root.add(board);
       root.add(part(new THREE.BoxGeometry(2.76, 2.24, 0.04), toon('#5b3a2a'), [0, 1.9, -0.01], { outline: 0.01 }));
-      const lbl = card(['CANE TOAD SIGHTINGS'], 2.0, 0.28, { sizes: [130], bg: '#f4ead2' }); lbl.position.set(0, 3.15, 0.03); root.add(lbl);
+      const lbl = card(['CANE TOAD SIGHTINGS'], 2.0, 0.28, { sizes: [64], bg: '#f4ead2' }); lbl.position.set(0, 3.15, 0.03); root.add(lbl);
       const desk = part(new THREE.BoxGeometry(3, 0.1, 1.2), toon('#ffffff', paintTexture({ base: '#7a5236', kind: 'planks', seed: 5 })), [0, 0.85, 1.0], { outline: 0.015 }); root.add(desk);
       const lamp = new THREE.Group(); lamp.position.set(-1.0, 0.9, 1.1); root.add(lamp);
       lamp.add(part(new THREE.CylinderGeometry(0.02, 0.02, 0.5, 6), toon('#2b2b33'), [0, 0.25, 0], { outline: 0.004, edges: false }));

@@ -1,0 +1,4 @@
+{"title": {"lines": ["MAMMOTHS WERE", "ALIVE FOR THE", "PYRAMIDS"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "OVERSEER": "#ffd23a", "SCIENTIST": "#6fe0ff"},
+ "locs": [[0, 6.6, "hook"], [6.6, 14.2, "giza"], [14.2, 17.5, "shout"], [17.5, 24.0, "north"], [24.0, 33.0, "island"], [33.0, 38.3, "lab"], [38.3, 44.5, "timeline"], [44.5, 50.3, "snow"]],
+ "inner_cuts": [11.95, 29.1], "time_skips": [17.5]}

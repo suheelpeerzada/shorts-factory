@@ -1,0 +1,823 @@
+{
+"dur": 50.3,
+"lines": [
+{
+"s": 0.3,
+"e": 14.12,
+"sp": "NARRATOR"
+},
+{
+"s": 14.32,
+"e": 17.44,
+"sp": "OVERSEER"
+},
+{
+"s": 17.64,
+"e": 35.46,
+"sp": "NARRATOR"
+},
+{
+"s": 35.66,
+"e": 38.24,
+"sp": "SCIENTIST"
+},
+{
+"s": 38.44,
+"e": 49.2,
+"sp": "NARRATOR"
+}
+],
+"words": [
+{
+"w": "When",
+"s": 0.3,
+"e": 0.46,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 0.46,
+"e": 0.58,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Great",
+"s": 0.58,
+"e": 0.82,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Pyramid",
+"s": 0.82,
+"e": 1.36,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "was",
+"s": 1.36,
+"e": 1.5,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "finished,",
+"s": 1.5,
+"e": 1.94,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "mammoths",
+"s": 2.5,
+"e": 2.94,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "were",
+"s": 2.94,
+"e": 3.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "still",
+"s": 3.2,
+"e": 3.52,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "alive.",
+"s": 3.52,
+"e": 3.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Not",
+"s": 4.56,
+"e": 4.78,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "frozen,",
+"s": 4.78,
+"e": 5.14,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "walking",
+"s": 5.6,
+"e": 5.94,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "around.",
+"s": 5.94,
+"e": 6.36,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "It's",
+"s": 6.86,
+"e": 7.04,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "2560",
+"s": 7.04,
+"e": 7.9,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "BC",
+"s": 7.9,
+"e": 8.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "in",
+"s": 8.34,
+"e": 8.92,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Egypt,",
+"s": 8.92,
+"e": 9.24,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "workers",
+"s": 9.7,
+"e": 10.0,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "haul",
+"s": 10.0,
+"e": 10.36,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 10.36,
+"e": 10.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "last",
+"s": 10.56,
+"e": 10.88,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "stones",
+"s": 10.88,
+"e": 11.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "up,",
+"s": 11.22,
+"e": 11.52,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "and",
+"s": 11.92,
+"e": 11.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 11.98,
+"e": 12.08,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "overseer",
+"s": 12.08,
+"e": 12.7,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "is",
+"s": 12.7,
+"e": 12.92,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "not",
+"s": 12.92,
+"e": 13.32,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "patient.",
+"s": 13.32,
+"e": 13.8,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Higher!",
+"s": 14.32,
+"e": 14.82,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "The",
+"s": 15.2,
+"e": 15.36,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "king",
+"s": 15.36,
+"e": 15.62,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "wants",
+"s": 15.62,
+"e": 15.96,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "it",
+"s": 15.96,
+"e": 16.12,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "touching",
+"s": 16.12,
+"e": 16.46,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "the",
+"s": 16.46,
+"e": 16.72,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "sky!",
+"s": 16.72,
+"e": 17.02,
+"sp": "OVERSEER",
+"line": 1
+},
+{
+"w": "Meanwhile,",
+"s": 17.64,
+"e": 18.06,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "far",
+"s": 18.46,
+"e": 18.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "to",
+"s": 18.76,
+"e": 18.94,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 18.94,
+"e": 19.06,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "north,",
+"s": 19.06,
+"e": 19.36,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 19.78,
+"e": 19.84,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Ice",
+"s": 19.84,
+"e": 20.14,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Age",
+"s": 20.14,
+"e": 20.42,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "is",
+"s": 20.42,
+"e": 20.62,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "over.",
+"s": 20.62,
+"e": 20.96,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "The",
+"s": 21.54,
+"e": 21.58,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "mammoths",
+"s": 21.58,
+"e": 21.98,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "are",
+"s": 21.98,
+"e": 22.26,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "gone,",
+"s": 22.26,
+"e": 22.6,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "everywhere,",
+"s": 23.06,
+"e": 23.52,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "except",
+"s": 24.06,
+"e": 24.36,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "one",
+"s": 24.36,
+"e": 24.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "tiny",
+"s": 24.86,
+"e": 25.36,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "arctic",
+"s": 25.36,
+"e": 25.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "island.",
+"s": 25.86,
+"e": 26.32,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Rising",
+"s": 26.78,
+"e": 27.1,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "seas",
+"s": 27.1,
+"e": 27.52,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "trapped",
+"s": 27.52,
+"e": 27.9,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 27.9,
+"e": 28.08,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "herd",
+"s": 28.08,
+"e": 28.34,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "there.",
+"s": 28.34,
+"e": 28.64,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "No",
+"s": 29.16,
+"e": 29.3,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "hunters,",
+"s": 29.3,
+"e": 29.62,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "no",
+"s": 30.12,
+"e": 30.28,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "way",
+"s": 30.28,
+"e": 30.5,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "off.",
+"s": 30.5,
+"e": 30.74,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "So",
+"s": 31.24,
+"e": 31.46,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "they",
+"s": 31.46,
+"e": 31.6,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "just",
+"s": 31.6,
+"e": 31.84,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "kept",
+"s": 31.84,
+"e": 32.34,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "living.",
+"s": 32.34,
+"e": 32.66,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Then",
+"s": 33.18,
+"e": 33.44,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "scientists",
+"s": 33.44,
+"e": 34.04,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "dated",
+"s": 34.04,
+"e": 34.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "their",
+"s": 34.56,
+"e": 34.8,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "bones.",
+"s": 34.8,
+"e": 35.12,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Only",
+"s": 35.66,
+"e": 36.02,
+"sp": "SCIENTIST",
+"line": 3
+},
+{
+"w": "4,000",
+"s": 36.02,
+"e": 37.22,
+"sp": "SCIENTIST",
+"line": 3
+},
+{
+"w": "years",
+"s": 37.22,
+"e": 37.56,
+"sp": "SCIENTIST",
+"line": 3
+},
+{
+"w": "old?!",
+"s": 37.56,
+"e": 38.02,
+"sp": "SCIENTIST",
+"line": 3
+},
+{
+"w": "You",
+"s": 38.44,
+"e": 38.56,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "see,",
+"s": 38.56,
+"e": 38.74,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "on",
+"s": 39.2,
+"e": 39.3,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Wrangel",
+"s": 39.3,
+"e": 39.6,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Island,",
+"s": 39.6,
+"e": 40.02,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 40.54,
+"e": 40.6,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "last",
+"s": 40.6,
+"e": 40.88,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "mammoths",
+"s": 40.88,
+"e": 41.36,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "outlived",
+"s": 41.36,
+"e": 41.78,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 41.78,
+"e": 41.96,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "pyramid's",
+"s": 41.96,
+"e": 42.42,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "builders",
+"s": 42.42,
+"e": 42.7,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "by",
+"s": 42.7,
+"e": 42.96,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "500",
+"s": 42.96,
+"e": 43.58,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "years.",
+"s": 43.58,
+"e": 44.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "So",
+"s": 44.62,
+"e": 44.82,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "while",
+"s": 44.82,
+"e": 45.0,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Egypt",
+"s": 45.0,
+"e": 45.32,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "admired",
+"s": 45.32,
+"e": 45.92,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "its",
+"s": 45.92,
+"e": 46.2,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "new",
+"s": 46.2,
+"e": 46.38,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "wonder,",
+"s": 46.38,
+"e": 46.68,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 47.34,
+"e": 47.5,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "mammoth",
+"s": 47.5,
+"e": 47.96,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "was",
+"s": 47.96,
+"e": 48.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "walking",
+"s": 48.1,
+"e": 48.44,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "in",
+"s": 48.44,
+"e": 48.6,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 48.6,
+"e": 48.7,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "snow.",
+"s": 48.7,
+"e": 48.94,
+"sp": "NARRATOR",
+"line": 4
+}
+]
+}
