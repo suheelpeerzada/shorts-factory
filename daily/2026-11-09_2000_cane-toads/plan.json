@@ -1,0 +1,4 @@
+{"title": {"lines": ["102 TOADS", "BECAME 200", "MILLION"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "OFFICIAL": "#ffd23a", "FARMER": "#7fe07a"},
+ "locs": [[0, 6.3, "crate"], [6.3, 9.85, "swarm"], [9.85, 14.6, "field"], [14.6, 21.75, "dock"], [21.75, 29.0, "release"], [29.0, 32.15, "pond"], [32.15, 34.1, "map"], [34.1, 38.7, "farmer"], [38.7, 51.22, "stalk"]],
+ "inner_cuts": [18.9, 26.5, 44.1], "time_skips": []}
