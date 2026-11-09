@@ -1,0 +1,4 @@
+{"title": {"lines": ["THE BEAR", "WHO JOINED", "THE ARMY"], "part": "FINAL PART", "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "BRITISH": "#ffd23a", "COMRADE": "#7fe08a"},
+ "locs": [[0, 7.1, "hill"], [7.1, 10.8, "dock"], [10.8, 18.4, "cassino"], [18.4, 20.9, "driver"], [20.9, 28.7, "carry"], [28.7, 34.7, "tent"], [34.7, 49.4, "zoo"], [49.4, 53.6, "badge"]],
+ "inner_cuts": [8.4, 37.75, 39.6, 46.1], "time_skips": [34.7]}

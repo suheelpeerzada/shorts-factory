@@ -1,0 +1,1012 @@
+{
+"dur": 53.6,
+"lines": [
+{
+"s": 0.3,
+"e": 18.38,
+"sp": "NARRATOR"
+},
+{
+"s": 18.58,
+"e": 20.86,
+"sp": "BRITISH"
+},
+{
+"s": 21.06,
+"e": 37.72,
+"sp": "NARRATOR"
+},
+{
+"s": 37.92,
+"e": 39.58,
+"sp": "COMRADE"
+},
+{
+"s": 39.78,
+"e": 52.5,
+"sp": "NARRATOR"
+}
+],
+"words": [
+{
+"w": "This",
+"s": 0.3,
+"e": 0.62,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "bear",
+"s": 0.62,
+"e": 0.96,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "is",
+"s": 0.96,
+"e": 1.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "carrying",
+"s": 1.22,
+"e": 1.6,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "artillery",
+"s": 1.6,
+"e": 2.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "shells",
+"s": 2.2,
+"e": 2.72,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "into",
+"s": 2.72,
+"e": 3.36,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 3.36,
+"e": 3.54,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "real",
+"s": 3.54,
+"e": 3.9,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "battle,",
+"s": 3.9,
+"e": 4.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "but",
+"s": 4.8,
+"e": 4.92,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 4.92,
+"e": 5.04,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "strangest",
+"s": 5.04,
+"e": 5.64,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "part",
+"s": 5.64,
+"e": 5.86,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "comes",
+"s": 5.86,
+"e": 6.16,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "after",
+"s": 6.16,
+"e": 6.6,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 6.6,
+"e": 6.76,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "war.",
+"s": 6.76,
+"e": 7.02,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Polish",
+"s": 7.36,
+"e": 7.66,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "soldiers",
+"s": 7.66,
+"e": 8.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "had",
+"s": 8.12,
+"e": 8.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "made",
+"s": 8.34,
+"e": 8.5,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "him",
+"s": 8.5,
+"e": 8.64,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 8.64,
+"e": 8.7,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "private",
+"s": 8.7,
+"e": 9.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "so",
+"s": 9.12,
+"e": 9.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "he",
+"s": 9.56,
+"e": 9.68,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "could",
+"s": 9.68,
+"e": 9.8,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "board",
+"s": 9.8,
+"e": 10.02,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "their",
+"s": 10.02,
+"e": 10.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "ship.",
+"s": 10.2,
+"e": 10.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Now",
+"s": 11.08,
+"e": 11.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "it's",
+"s": 11.22,
+"e": 11.5,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "1944,",
+"s": 11.5,
+"e": 12.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Monte",
+"s": 12.82,
+"e": 13.15,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Cassino,",
+"s": 13.15,
+"e": 13.48,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Italy.",
+"s": 13.58,
+"e": 13.82,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Shells",
+"s": 14.48,
+"e": 14.8,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "are",
+"s": 14.8,
+"e": 14.92,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "flying",
+"s": 14.92,
+"e": 15.44,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "when",
+"s": 15.44,
+"e": 15.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 15.98,
+"e": 16.08,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "British",
+"s": 16.08,
+"e": 16.28,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "driver",
+"s": 16.28,
+"e": 16.7,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "sees",
+"s": 16.7,
+"e": 16.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "something",
+"s": 16.98,
+"e": 17.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "impossible.",
+"s": 17.34,
+"e": 17.88,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Is",
+"s": 18.58,
+"e": 18.74,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "that",
+"s": 18.74,
+"e": 18.92,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "a",
+"s": 18.92,
+"e": 19.02,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "bear",
+"s": 19.02,
+"e": 19.48,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "carrying",
+"s": 19.48,
+"e": 20.0,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "our",
+"s": 20.0,
+"e": 20.24,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "ammo?",
+"s": 20.24,
+"e": 20.54,
+"sp": "BRITISH",
+"line": 1
+},
+{
+"w": "Wojtek",
+"s": 21.06,
+"e": 21.5,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "had",
+"s": 21.5,
+"e": 21.68,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "watched",
+"s": 21.68,
+"e": 22.02,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 22.02,
+"e": 22.24,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "men,",
+"s": 22.24,
+"e": 22.42,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "so",
+"s": 22.82,
+"e": 23.08,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "he",
+"s": 23.08,
+"e": 23.4,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "copied",
+"s": 23.4,
+"e": 23.72,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "them.",
+"s": 23.72,
+"e": 24.02,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Crates",
+"s": 24.42,
+"e": 24.7,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "of",
+"s": 24.7,
+"e": 24.8,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "45",
+"s": 24.8,
+"e": 25.46,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "kilos,",
+"s": 25.46,
+"e": 25.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 26.18,
+"e": 26.24,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "story",
+"s": 26.24,
+"e": 26.5,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "goes,",
+"s": 26.5,
+"e": 26.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "and",
+"s": 27.26,
+"e": 27.38,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "he",
+"s": 27.38,
+"e": 27.48,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "never",
+"s": 27.48,
+"e": 27.84,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "dropped",
+"s": 27.84,
+"e": 28.26,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "one.",
+"s": 28.26,
+"e": 28.48,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Then",
+"s": 28.9,
+"e": 29.2,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 29.2,
+"e": 29.34,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "war",
+"s": 29.34,
+"e": 29.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "ended,",
+"s": 29.56,
+"e": 29.88,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "and",
+"s": 30.4,
+"e": 30.7,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 30.7,
+"e": 30.94,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "army",
+"s": 30.94,
+"e": 31.18,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "had",
+"s": 31.18,
+"e": 31.36,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 31.36,
+"e": 31.44,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "problem.",
+"s": 31.44,
+"e": 31.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "What",
+"s": 32.34,
+"e": 32.5,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "do",
+"s": 32.5,
+"e": 32.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "you",
+"s": 32.56,
+"e": 32.62,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "do",
+"s": 32.62,
+"e": 32.78,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "with",
+"s": 32.78,
+"e": 32.92,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 32.92,
+"e": 33.0,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "soldier",
+"s": 33.0,
+"e": 33.4,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "who's",
+"s": 33.4,
+"e": 34.0,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 34.0,
+"e": 34.08,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "bear?",
+"s": 34.08,
+"e": 34.38,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "In",
+"s": 34.9,
+"e": 35.02,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "1947,",
+"s": 35.02,
+"e": 35.72,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "he",
+"s": 36.18,
+"e": 36.34,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "moved",
+"s": 36.34,
+"e": 36.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "into",
+"s": 36.56,
+"e": 36.78,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Edinburgh",
+"s": 36.78,
+"e": 37.18,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Zoo.",
+"s": 37.18,
+"e": 37.48,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Wojtek!",
+"s": 37.92,
+"e": 38.42,
+"sp": "COMRADE",
+"line": 3
+},
+{
+"w": "It's",
+"s": 38.8,
+"e": 39.1,
+"sp": "COMRADE",
+"line": 3
+},
+{
+"w": "us!",
+"s": 39.1,
+"e": 39.26,
+"sp": "COMRADE",
+"line": 3
+},
+{
+"w": "His",
+"s": 39.78,
+"e": 39.96,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "old",
+"s": 39.96,
+"e": 40.14,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "comrades",
+"s": 40.14,
+"e": 40.62,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "visited",
+"s": 40.62,
+"e": 41.12,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "and",
+"s": 41.12,
+"e": 41.64,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "spoke",
+"s": 41.64,
+"e": 41.9,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Polish",
+"s": 41.9,
+"e": 42.26,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "to",
+"s": 42.26,
+"e": 42.56,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "him,",
+"s": 42.56,
+"e": 42.76,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "and",
+"s": 43.2,
+"e": 43.32,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "he",
+"s": 43.32,
+"e": 43.42,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "still",
+"s": 43.42,
+"e": 43.68,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "answered.",
+"s": 43.68,
+"e": 44.0,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "He",
+"s": 44.54,
+"e": 44.64,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "lived",
+"s": 44.64,
+"e": 44.94,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "to",
+"s": 44.94,
+"e": 45.24,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "21.",
+"s": 45.24,
+"e": 45.64,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "You",
+"s": 46.28,
+"e": 46.34,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "see,",
+"s": 46.34,
+"e": 46.56,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Wojtek",
+"s": 47.04,
+"e": 47.44,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "left",
+"s": 47.44,
+"e": 47.68,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 47.68,
+"e": 47.84,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "army",
+"s": 47.84,
+"e": 48.14,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 48.14,
+"e": 48.34,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "corporal,",
+"s": 48.34,
+"e": 48.94,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "and",
+"s": 49.3,
+"e": 49.38,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "his",
+"s": 49.38,
+"e": 49.52,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "unit's",
+"s": 49.52,
+"e": 49.9,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "badge",
+"s": 49.9,
+"e": 50.16,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "became",
+"s": 50.16,
+"e": 50.58,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 50.58,
+"e": 50.74,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "bear",
+"s": 50.74,
+"e": 51.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "carrying",
+"s": 51.1,
+"e": 51.84,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 51.84,
+"e": 52.06,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "shell.",
+"s": 52.06,
+"e": 52.28,
+"sp": "NARRATOR",
+"line": 4
+}
+]
+}
