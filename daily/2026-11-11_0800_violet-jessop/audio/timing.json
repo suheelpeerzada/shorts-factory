@@ -1,0 +1,907 @@
+{
+"dur": 52.62,
+"lines": [
+{
+"s": 0.3,
+"e": 19.58,
+"sp": "NARRATOR"
+},
+{
+"s": 19.78,
+"e": 22.66,
+"sp": "OFFICER"
+},
+{
+"s": 22.86,
+"e": 37.78,
+"sp": "NARRATOR"
+},
+{
+"s": 37.98,
+"e": 40.14,
+"sp": "VIOLET"
+},
+{
+"s": 40.34,
+"e": 51.52,
+"sp": "NARRATOR"
+}
+],
+"words": [
+{
+"w": "Violet",
+"s": 0.3,
+"e": 0.86,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Jessop",
+"s": 0.86,
+"e": 1.32,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "survived",
+"s": 1.32,
+"e": 1.84,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 1.84,
+"e": 2.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Titanic",
+"s": 2.2,
+"e": 2.68,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "and",
+"s": 2.68,
+"e": 3.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "both",
+"s": 3.56,
+"e": 4.06,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "of",
+"s": 4.06,
+"e": 4.3,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "its",
+"s": 4.3,
+"e": 4.44,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "sister",
+"s": 4.44,
+"e": 4.74,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "ships",
+"s": 4.74,
+"e": 5.1,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "and",
+"s": 5.1,
+"e": 5.66,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "when",
+"s": 5.66,
+"e": 5.78,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 5.78,
+"e": 5.92,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "last",
+"s": 5.92,
+"e": 6.16,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "one",
+"s": 6.16,
+"e": 6.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "sank,",
+"s": 6.34,
+"e": 6.72,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "she",
+"s": 6.96,
+"e": 7.24,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "grabbed",
+"s": 7.24,
+"e": 7.5,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "just",
+"s": 7.5,
+"e": 7.84,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "one",
+"s": 7.84,
+"e": 8.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "thing.",
+"s": 8.22,
+"e": 8.54,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "In",
+"s": 8.98,
+"e": 9.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "1911,",
+"s": 9.12,
+"e": 9.78,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "she's",
+"s": 9.92,
+"e": 10.26,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 10.26,
+"e": 10.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "stewardess",
+"s": 10.34,
+"e": 10.9,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "on",
+"s": 10.9,
+"e": 11.04,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 11.04,
+"e": 11.14,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Olympic,",
+"s": 11.14,
+"e": 11.44,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 11.92,
+"e": 11.96,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "biggest",
+"s": 11.96,
+"e": 12.32,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "ship",
+"s": 12.32,
+"e": 12.66,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "afloat.",
+"s": 12.66,
+"e": 13.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "A",
+"s": 13.52,
+"e": 13.62,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "warship",
+"s": 13.62,
+"e": 14.06,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "rams",
+"s": 14.06,
+"e": 14.48,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "it.",
+"s": 14.48,
+"e": 14.64,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Violet",
+"s": 14.98,
+"e": 15.44,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "walks",
+"s": 15.44,
+"e": 15.74,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "away.",
+"s": 15.74,
+"e": 16.1,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "A",
+"s": 16.56,
+"e": 16.66,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "year",
+"s": 16.66,
+"e": 16.82,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "later,",
+"s": 16.82,
+"e": 17.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "she's",
+"s": 17.34,
+"e": 17.58,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "on",
+"s": 17.58,
+"e": 17.72,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "its",
+"s": 17.72,
+"e": 17.82,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "sister,",
+"s": 17.82,
+"e": 18.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 18.22,
+"e": 18.74,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Titanic.",
+"s": 18.74,
+"e": 18.96,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Miss",
+"s": 19.78,
+"e": 19.96,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "Jessop,",
+"s": 20.08,
+"e": 20.42,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "into",
+"s": 20.72,
+"e": 20.92,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "the",
+"s": 20.92,
+"e": 21.1,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "boat,",
+"s": 21.1,
+"e": 21.3,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "set",
+"s": 21.7,
+"e": 21.9,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "an",
+"s": 21.9,
+"e": 22.04,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "example.",
+"s": 22.04,
+"e": 22.44,
+"sp": "OFFICER",
+"line": 1
+},
+{
+"w": "In",
+"s": 22.86,
+"e": 23.42,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Lifeboat",
+"s": 23.42,
+"e": 23.9,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "16,",
+"s": 23.9,
+"e": 24.46,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "someone",
+"s": 25.04,
+"e": 25.42,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "drops",
+"s": 25.42,
+"e": 25.74,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 25.74,
+"e": 25.9,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "baby",
+"s": 25.9,
+"e": 26.2,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "in",
+"s": 26.2,
+"e": 26.4,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "her",
+"s": 26.4,
+"e": 26.5,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "lap.",
+"s": 26.5,
+"e": 26.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Then,",
+"s": 27.34,
+"e": 27.72,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "in",
+"s": 28.0,
+"e": 28.14,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "1916,",
+"s": 28.14,
+"e": 28.96,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "she's",
+"s": 29.38,
+"e": 29.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "on",
+"s": 29.56,
+"e": 29.64,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 29.64,
+"e": 29.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "third",
+"s": 29.76,
+"e": 30.06,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "sister,",
+"s": 30.06,
+"e": 30.48,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 30.78,
+"e": 30.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Britannic,",
+"s": 30.86,
+"e": 31.44,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "as",
+"s": 31.58,
+"e": 31.7,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 31.7,
+"e": 31.82,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "nurse.",
+"s": 31.82,
+"e": 32.0,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "A",
+"s": 32.58,
+"e": 32.68,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "mine",
+"s": 32.68,
+"e": 32.98,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "hits.",
+"s": 32.98,
+"e": 33.26,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Her",
+"s": 33.76,
+"e": 33.86,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "lifeboat",
+"s": 33.86,
+"e": 34.28,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "is",
+"s": 34.28,
+"e": 34.46,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "sucked",
+"s": 34.46,
+"e": 34.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "toward",
+"s": 34.76,
+"e": 35.06,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "the",
+"s": 35.06,
+"e": 35.24,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "spinning",
+"s": 35.24,
+"e": 35.46,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "propellers,",
+"s": 35.46,
+"e": 36.02,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "so",
+"s": 36.48,
+"e": 36.66,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Violet",
+"s": 36.66,
+"e": 37.02,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "jumps.",
+"s": 37.02,
+"e": 37.28,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Not",
+"s": 37.98,
+"e": 38.98,
+"sp": "VIOLET",
+"line": 3
+},
+{
+"w": "again!",
+"s": 38.98,
+"e": 39.56,
+"sp": "VIOLET",
+"line": 3
+},
+{
+"w": "She",
+"s": 40.34,
+"e": 40.56,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "cracked",
+"s": 40.56,
+"e": 40.9,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "her",
+"s": 40.9,
+"e": 41.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "skull",
+"s": 41.1,
+"e": 41.5,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "and",
+"s": 41.5,
+"e": 42.14,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "lived.",
+"s": 42.14,
+"e": 42.46,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "You",
+"s": 43.02,
+"e": 43.12,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "see,",
+"s": 43.12,
+"e": 43.32,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "as",
+"s": 43.72,
+"e": 43.86,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 43.86,
+"e": 43.98,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Britannic",
+"s": 43.98,
+"e": 44.48,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "sank,",
+"s": 44.48,
+"e": 44.82,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Violet",
+"s": 45.3,
+"e": 45.66,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "had",
+"s": 45.66,
+"e": 45.76,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "grabbed",
+"s": 45.76,
+"e": 46.12,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "one",
+"s": 46.12,
+"e": 46.44,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "thing,",
+"s": 46.44,
+"e": 46.78,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "her",
+"s": 47.28,
+"e": 47.36,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "toothbrush,",
+"s": 47.36,
+"e": 47.82,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "because",
+"s": 48.44,
+"e": 48.68,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "after",
+"s": 48.68,
+"e": 49.0,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 49.0,
+"e": 49.16,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Titanic,",
+"s": 49.16,
+"e": 49.6,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "that's",
+"s": 50.02,
+"e": 50.46,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "what",
+"s": 50.46,
+"e": 50.58,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "she",
+"s": 50.58,
+"e": 50.74,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "missed",
+"s": 50.74,
+"e": 50.96,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "most.",
+"s": 50.96,
+"e": 51.28,
+"sp": "NARRATOR",
+"line": 4
+}
+]
+}

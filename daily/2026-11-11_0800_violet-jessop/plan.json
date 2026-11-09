@@ -1,0 +1,4 @@
+{"title": {"lines": ["SHE SURVIVED", "THE TITANIC", "AND ITS SISTERS"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "OFFICER": "#ffd23a", "VIOLET": "#ff8fb8"},
+ "locs": [[0, 8.9, "hook"], [8.9, 16.4, "olympic"], [16.4, 22.7, "titanic"], [22.7, 27.2, "lifeboat"], [27.2, 40.2, "britannic"], [40.2, 52.62, "cabin"]],
+ "inner_cuts": [14.9, 33.6, 37.8, 43.0], "time_skips": [27.2]}
