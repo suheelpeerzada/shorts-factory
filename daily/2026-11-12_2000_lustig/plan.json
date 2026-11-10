@@ -1,0 +1,4 @@
+{"title": {"lines": ["HE SOLD THE", "EIFFEL TOWER", "TWICE"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "LUSTIG": "#ffd23a", "POISSON": "#7fd4ff"},
+ "locs": [[0, 7.4, "hook"], [7.4, 13.0, "paris"], [13.0, 17.9, "desk"], [17.9, 25.4, "hotel"], [25.4, 33.7, "couple"], [33.7, 43.2, "deal"], [43.2, 49.1, "shame"], [49.1, 53.3, "tower"]],
+ "inner_cuts": [30.8, 40.6], "time_skips": [49.1]}
