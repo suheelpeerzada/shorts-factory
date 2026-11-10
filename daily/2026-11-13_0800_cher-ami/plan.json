@@ -1,0 +1,4 @@
+{"title": {"lines": ["THE PIGEON", "WHO SAVED", "194 SOLDIERS"], "part": null, "until": 1.9},
+ "colors": {"NARRATOR": "#ffffff", "MAJOR": "#ffd23a"},
+ "locs": [[0, 8.6, "hook"], [8.6, 14.3, "forest"], [14.3, 19.0, "shelling"], [19.0, 22.7, "major"], [22.7, 30.6, "flight"], [30.6, 37.2, "hq"], [37.2, 46.1, "rescue"], [46.1, 52.86, "museum"]],
+ "inner_cuts": [27.4, 42.0], "time_skips": [46.1]}

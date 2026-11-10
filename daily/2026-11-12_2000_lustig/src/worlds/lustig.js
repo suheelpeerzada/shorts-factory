@@ -155,9 +155,9 @@ export function makeLustig(id) {
       const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), glow('#ffe2a0')); bulb.position.set(0.5, 1.3, -0.9); room.add(bulb);
       for (let i = 0; i < 3; i++) { const c = crate(0.45, '#7a5236'); c.position.set(-2.6, i * 0.45, -1.6 + (i % 2) * 0.1); room.add(c); }
       if (id === 'desk') {
-        const letter = card(['MINISTRY OF POSTS', '& TELEGRAPHS', 'TOP SECRET'], 0.9, 0.62, { sizes: [100, 100, 130], bg: '#f4ead2' }); letter.rotation.x = -Math.PI / 2 + 0.35; letter.position.set(-0.2, 0.86, -0.45); room.add(letter);
+        const letter = card(['MINISTRY OF POSTS', '& TELEGRAPHS', 'TOP SECRET'], 0.9, 0.62, { sizes: [72, 80, 110], bg: '#f4ead2' }); letter.rotation.x = -Math.PI / 2 + 0.35; letter.position.set(-0.2, 0.86, -0.45); room.add(letter);
         const seal = card(['OFFICIAL'], 0.42, 0.16, { sizes: [180], bg: '#f4ead2', fg: '#c9353a', border: '#c9353a' }); seal.rotation.copy(letter.rotation); seal.position.set(0.08, 0.875, -0.36); room.add(seal);
-        const envs = []; for (let i = 0; i < 5; i++) { const e = card([['M. DURAND', 'M. LEROY', 'A. POISSON', 'M. BLANC', 'M. FAURE'][i]], 0.5, 0.3, { sizes: [150], bg: '#efe2c4' }); room.add(e); envs.push(e); }
+        const envs = []; for (let i = 0; i < 5; i++) { const e = card([['M. DURAND', 'M. LEROY', 'A. POISSON', 'M. BLANC', 'M. FAURE'][i]], 0.5, 0.3, { sizes: [125], bg: '#efe2c4' }); room.add(e); envs.push(e); }
         const lu = add(makePerson(LUSTIG, { tint: '#ffe8d0' }));
         U((t, cam) => {
           const st = w(0, '^government'), inv = w(0, '^invites');

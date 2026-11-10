@@ -1,0 +1,900 @@
+{
+"dur": 52.86,
+"lines": [
+{
+"s": 0.3,
+"e": 20.74,
+"sp": "NARRATOR"
+},
+{
+"s": 20.94,
+"e": 22.6,
+"sp": "MAJOR"
+},
+{
+"s": 22.8,
+"e": 32.12,
+"sp": "NARRATOR"
+},
+{
+"s": 32.32,
+"e": 37.1,
+"sp": "MAJOR"
+},
+{
+"s": 37.3,
+"e": 52.16,
+"sp": "NARRATOR"
+}
+],
+"words": [
+{
+"w": "A",
+"s": 0.3,
+"e": 0.44,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "pigeon",
+"s": 0.44,
+"e": 0.76,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "saved",
+"s": 0.76,
+"e": 1.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "194",
+"s": 1.22,
+"e": 2.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "American",
+"s": 2.56,
+"e": 3.04,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "soldiers,",
+"s": 3.04,
+"e": 3.62,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "with",
+"s": 4.18,
+"e": 4.34,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 4.34,
+"e": 4.46,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "bullet",
+"s": 4.46,
+"e": 4.82,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "in",
+"s": 4.82,
+"e": 5.06,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "its",
+"s": 5.06,
+"e": 5.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "chest,",
+"s": 5.2,
+"e": 5.54,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "and",
+"s": 6.06,
+"e": 6.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "the",
+"s": 6.12,
+"e": 6.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "army",
+"s": 6.2,
+"e": 6.48,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "got",
+"s": 6.48,
+"e": 6.72,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "one",
+"s": 6.72,
+"e": 7.06,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "thing",
+"s": 7.06,
+"e": 7.36,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "completely",
+"s": 7.36,
+"e": 8.0,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "wrong.",
+"s": 8.0,
+"e": 8.5,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "October",
+"s": 8.86,
+"e": 9.24,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "1918.",
+"s": 9.24,
+"e": 10.16,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Over",
+"s": 10.78,
+"e": 10.88,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "500",
+"s": 10.88,
+"e": 11.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "American",
+"s": 11.56,
+"e": 11.9,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "soldiers",
+"s": 11.9,
+"e": 12.46,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "are",
+"s": 12.46,
+"e": 12.68,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "trapped",
+"s": 12.68,
+"e": 13.0,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "in",
+"s": 13.0,
+"e": 13.2,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "a",
+"s": 13.2,
+"e": 13.28,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "French",
+"s": 13.28,
+"e": 13.52,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "forest,",
+"s": 13.52,
+"e": 13.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "then",
+"s": 14.38,
+"e": 14.68,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "their",
+"s": 14.68,
+"e": 14.98,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "own",
+"s": 14.98,
+"e": 15.3,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "artillery",
+"s": 15.3,
+"e": 15.76,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "starts",
+"s": 15.76,
+"e": 16.1,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "shelling",
+"s": 16.1,
+"e": 16.62,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "them.",
+"s": 16.62,
+"e": 16.8,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Their",
+"s": 17.06,
+"e": 17.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "other",
+"s": 17.22,
+"e": 17.4,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "pigeons",
+"s": 17.4,
+"e": 17.78,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "are",
+"s": 17.78,
+"e": 18.0,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "shot",
+"s": 18.0,
+"e": 18.22,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "down.",
+"s": 18.22,
+"e": 18.56,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "The",
+"s": 19.0,
+"e": 19.12,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "last",
+"s": 19.12,
+"e": 19.38,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "bird",
+"s": 19.38,
+"e": 19.64,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "is",
+"s": 19.64,
+"e": 20.06,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Cher Ami.",
+"s": 20.06,
+"e": 20.6,
+"sp": "NARRATOR",
+"line": 0
+},
+{
+"w": "Go",
+"s": 20.94,
+"e": 21.14,
+"sp": "MAJOR",
+"line": 1
+},
+{
+"w": "home,",
+"s": 21.14,
+"e": 21.42,
+"sp": "MAJOR",
+"line": 1
+},
+{
+"w": "girl!",
+"s": 21.5,
+"e": 21.68,
+"sp": "MAJOR",
+"line": 1
+},
+{
+"w": "Fly!",
+"s": 22.02,
+"e": 22.24,
+"sp": "MAJOR",
+"line": 1
+},
+{
+"w": "She's",
+"s": 22.8,
+"e": 23.2,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "hit.",
+"s": 23.2,
+"e": 23.4,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "One",
+"s": 24.1,
+"e": 24.24,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "eye",
+"s": 24.24,
+"e": 24.44,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "gone.",
+"s": 24.44,
+"e": 24.72,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "One",
+"s": 25.38,
+"e": 25.52,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "leg",
+"s": 25.52,
+"e": 25.82,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "hanging",
+"s": 25.82,
+"e": 26.18,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "by",
+"s": 26.18,
+"e": 26.44,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "a",
+"s": 26.44,
+"e": 26.54,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "thread.",
+"s": 26.54,
+"e": 26.8,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "She",
+"s": 27.4,
+"e": 27.48,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "keeps",
+"s": 27.48,
+"e": 27.82,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "flying.",
+"s": 27.82,
+"e": 28.32,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "25",
+"s": 28.94,
+"e": 29.4,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "miles.",
+"s": 29.4,
+"e": 29.9,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "The",
+"s": 30.68,
+"e": 30.76,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "message",
+"s": 30.76,
+"e": 31.0,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "on",
+"s": 31.0,
+"e": 31.2,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "her",
+"s": 31.2,
+"e": 31.34,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "leg",
+"s": 31.34,
+"e": 31.56,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "reads",
+"s": 31.56,
+"e": 31.84,
+"sp": "NARRATOR",
+"line": 2
+},
+{
+"w": "Our",
+"s": 32.32,
+"e": 32.52,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "artillery",
+"s": 32.52,
+"e": 32.92,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "is",
+"s": 32.92,
+"e": 33.22,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "dropping",
+"s": 33.22,
+"e": 33.5,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "a",
+"s": 33.5,
+"e": 33.68,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "barrage",
+"s": 33.68,
+"e": 34.08,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "directly",
+"s": 34.08,
+"e": 34.4,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "on",
+"s": 34.4,
+"e": 34.94,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "us!",
+"s": 34.94,
+"e": 35.16,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "For",
+"s": 35.32,
+"e": 35.56,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "heaven's",
+"s": 35.56,
+"e": 35.92,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "sake,",
+"s": 35.92,
+"e": 36.16,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "stop",
+"s": 36.32,
+"e": 36.62,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "it!",
+"s": 36.62,
+"e": 36.9,
+"sp": "MAJOR",
+"line": 3
+},
+{
+"w": "The",
+"s": 37.3,
+"e": 37.48,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "guns",
+"s": 37.48,
+"e": 37.76,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "stop.",
+"s": 37.76,
+"e": 38.26,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "194",
+"s": 39.38,
+"e": 40.02,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "men",
+"s": 40.02,
+"e": 40.66,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "walk",
+"s": 40.66,
+"e": 40.98,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "out",
+"s": 40.98,
+"e": 41.16,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "alive.",
+"s": 41.16,
+"e": 41.52,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Cher Ami",
+"s": 42.06,
+"e": 42.52,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "gets",
+"s": 42.52,
+"e": 42.7,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 42.7,
+"e": 42.88,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "medal,",
+"s": 42.88,
+"e": 43.14,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 43.5,
+"e": 43.6,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "tiny",
+"s": 43.6,
+"e": 43.86,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "wooden",
+"s": 43.86,
+"e": 44.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "leg,",
+"s": 44.1,
+"e": 44.48,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "and",
+"s": 44.66,
+"e": 45.0,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 45.0,
+"e": 45.06,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "museum",
+"s": 45.06,
+"e": 45.38,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "case.",
+"s": 45.38,
+"e": 45.72,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "You",
+"s": 46.18,
+"e": 46.28,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "see,",
+"s": 46.28,
+"e": 46.46,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "in",
+"s": 46.86,
+"e": 47.02,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "2021,",
+"s": 47.02,
+"e": 47.7,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "the",
+"s": 48.14,
+"e": 48.28,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Smithsonian",
+"s": 48.28,
+"e": 48.7,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "ran",
+"s": 48.7,
+"e": 49.1,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 49.1,
+"e": 49.2,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "DNA",
+"s": 49.2,
+"e": 49.48,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "test.",
+"s": 49.48,
+"e": 49.94,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "Cher Ami",
+"s": 50.28,
+"e": 50.86,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "was",
+"s": 50.86,
+"e": 51.54,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "a",
+"s": 51.54,
+"e": 51.68,
+"sp": "NARRATOR",
+"line": 4
+},
+{
+"w": "boy.",
+"s": 51.68,
+"e": 51.86,
+"sp": "NARRATOR",
+"line": 4
+}
+]
+}
